@@ -1,19 +1,21 @@
+'use strict';
 import './styles/styles.css';
-
 import 'babel-polyfill';
+
 import React from 'react';
 import {Provider} from 'react-redux';
-import configureStore from './store/configureStore';
+import * as ReactDOM from "react-dom";
+import {BrowserRouter} from 'react-router-dom';
 
 import App from './components/App';
-import * as ReactDOM from "react-dom";
-import {loadMarkers} from "./actions/markerActions";
+import configureStore from './store/configureStore';
 
 const store = configureStore();
-store.dispatch(loadMarkers());
 
 ReactDOM.render((
-  <Provider store={store}>
-    <App/>
-  </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App/>
+    </Provider>
+  </BrowserRouter>
 ), document.getElementById('app'));
