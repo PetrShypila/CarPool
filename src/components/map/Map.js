@@ -39,7 +39,6 @@ class Map extends React.Component {
 Map.propTypes = {
   isMarkerShown : PropTypes.bool.isRequired,
   actions : PropTypes.object.isRequired,
-  defaultZoom : PropTypes.number.isRequired,
   markers : PropTypes.array.isRequired
 };
 
