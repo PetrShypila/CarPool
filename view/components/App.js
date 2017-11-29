@@ -6,7 +6,6 @@ import Map from './map/Map';
 import Index from "./Home";
 
 const App = () => (
-
   <Switch>
     <Route exact path="/" component={Index} />
     <Route path="/map" render={(props) => <Map isMarkerShown

@@ -5,8 +5,9 @@ import { Marker } from "react-google-maps";
 
 const MarkerList = (props) => (
   <div>
-    {props.markers.map(marker =>
-      <Marker key={marker.id} position={marker} />
+    {props.markers.map(marker => {
+        return <Marker key={marker.id} position={marker} />;
+      }
     )}
   </div>
 );

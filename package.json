@@ -4,9 +4,9 @@
   "description": "Enterprise car pooling solution",
   "scripts": {
     "prestart": "babel-node tools/startMessage",
-    "start": "npm-run-all --parallel open:src lint:watch",
+    "start": "JWT_SECRET=83c7483q9cvp npm-run-all --parallel open:src lint:watch",
     "open:src": "babel-node tools/srcServer",
-    "lint": "node_modules/.bin/esw webpack.config.* src tools",
+    "lint": "node_modules/.bin/esw webpack.config.* view tools",
     "lint:watch": "npm run lint -- --watch"
   },
   "author": "Petr Shypila",
@@ -16,6 +16,8 @@
     "bootstrap": "3.3.7",
     "history": "4.6.3",
     "jquery": "3.2.1",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.3",
     "prop-types": "15.5.10",
     "react": "15.6.1",
     "react-dom": "15.6.1",

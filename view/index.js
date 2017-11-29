@@ -5,8 +5,7 @@ import 'babel-polyfill';
 import React from 'react';
 import {Provider} from 'react-redux';
 import * as ReactDOM from "react-dom";
-import {Router} from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory'
+import {BrowserRouter} from 'react-router-dom';
 
 import App from './components/App';
 import configureStore from './store/configureStore';
@@ -14,9 +13,9 @@ import configureStore from './store/configureStore';
 const store = configureStore();
 
 ReactDOM.render((
-  <Router history={createHistory()} >
+  <BrowserRouter>
     <Provider store={store}>
       <App/>
     </Provider>
-  </Router>
+  </BrowserRouter>
 ), document.getElementById('app'));
