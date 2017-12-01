@@ -1,4 +1,4 @@
-import mongoose from './connection';
+import mongoose from '../connection';
 
 const MarkerSchema = new mongoose.Schema({
   username: String,
@@ -6,4 +6,4 @@ const MarkerSchema = new mongoose.Schema({
   coordinates: Object
 });
 
-export default mongoose.model('Marker', MarkerSchema);
+export default mongoose.model('marker', MarkerSchema);

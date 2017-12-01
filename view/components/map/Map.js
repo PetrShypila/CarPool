@@ -29,7 +29,7 @@ class Map extends React.Component {
         defaultCenter={Constants.MAP_CENTER}
       >
         {
-          this.props.isMarkerShown && <MarkerList markers={markers}/>
+          this.props.isMarkerShown && <MarkerList markers={markers} />
         }
       </GoogleMap>
     );

@@ -20,14 +20,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('/api/v1/markers', function(req, res) {
-  markersService.getMarkers().then((users) => {
-
-    let markers = users.map(u => {
-      let marker = u.coordinates;
-      marker.id = u._id;
-      return marker;
-    });
-
+  markersService.getMarkers().then((markers) => {
     res.json(markers);
   });
 });

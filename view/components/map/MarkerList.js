@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Marker } from "react-google-maps";
+import MarkerWrapper from './MarkerWrapper';
 
 const MarkerList = (props) => (
   <div>
     {props.markers.map(marker => {
-        return <Marker key={marker.id} position={marker} />;
+        return <MarkerWrapper key={marker.id} marker={marker} />;
       }
     )}
   </div>
