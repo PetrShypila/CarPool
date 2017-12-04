@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
+import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "react-google-maps";
 import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 
 import MarkerWrapper from './MarkerWrapper';
@@ -35,9 +35,10 @@ class Map extends React.Component {
           gridSize={10}
         >
         {markers.map(m => (
-          <MarkerWrapper key={m.id} marker={m} />
+          <MarkerWrapper key={m._id} marker={m} />
         ))}
         </MarkerClusterer>
+        {this.props.directions && <DirectionsRenderer directions={this.props.directions} />}
       </GoogleMap>
     );
   }
@@ -46,12 +47,14 @@ class Map extends React.Component {
 Map.propTypes = {
   isMarkerShown : PropTypes.bool.isRequired,
   actions : PropTypes.object.isRequired,
-  markers : PropTypes.array.isRequired
+  markers : PropTypes.array.isRequired,
+  directions : PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-    markers: state.markers
+    markers: state.markers,
+    directions: state.directions
   };
 }
 

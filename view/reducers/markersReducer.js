@@ -9,8 +9,10 @@ export default function markersReducer(state = initialState.markers, action){
 
     case ACTIONS.SHOW_MARKER_INFOBOX: {
       return state.map(m => {
-        m.infoBoxVisible = m.id === action.markerId;
-        return m;
+
+        let marker = Object.assign({}, m);
+        marker.infoBoxVisible = marker._id === action.markerId;
+        return marker;
       });
     }
 

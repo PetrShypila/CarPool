@@ -8,12 +8,11 @@ const markerIcons = {
 export function getMarkers() {
 
   return new Promise((resolve, reject) => {
-    Marker.find().then(markers => {
+    Marker.find({}).then(markers => {
       const markersData = markers.map(m => {
-        const marker = Object.assign({}, m.coordinates);
+        const marker = Object.assign({}, m._doc);
 
-        marker.icon = markerIcons[m.type];
-        marker.id = m._id;
+        marker.icon = markerIcons[marker.type];
 
         return marker;
       });

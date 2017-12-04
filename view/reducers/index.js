@@ -1,9 +1,10 @@
 import {combineReducers} from 'redux';
 
 import markers from './markersReducer';
+import directions from './directionsReducer';
 
 const rootReducer = combineReducers({
-  markers
+  markers, directions
 });
 
 export default rootReducer;
