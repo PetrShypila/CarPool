@@ -5,10 +5,11 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
+import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 
+import MarkerWrapper from './MarkerWrapper';
 import * as markerActions from '../../actions/markerActions';
 import * as Constants from '../../store/constants';
-import MarkerList from './MarkerList';
 
 class Map extends React.Component {
 
@@ -28,9 +29,15 @@ class Map extends React.Component {
         defaultZoom= {Constants.MAP_DEF_ZOOM}
         defaultCenter={Constants.MAP_CENTER}
       >
-        {
-          this.props.isMarkerShown && <MarkerList markers={markers} />
-        }
+        <MarkerClusterer
+          averageCenter
+          enableRetinaIcons
+          gridSize={10}
+        >
+        {markers.map(m => (
+          <MarkerWrapper key={m.id} marker={m} />
+        ))}
+        </MarkerClusterer>
       </GoogleMap>
     );
   }
