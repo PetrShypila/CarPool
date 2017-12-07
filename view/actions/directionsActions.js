@@ -21,6 +21,10 @@ export function buildRouteToHost(direction) {
   };
 }
 
+export function cleanRoutes() {
+  return {type: ACTIONS.DIRECTIONS_CLEAR, directions:null};
+}
+
 function typeShowMarkerInfoBox(directions) {
-  return {type: ACTIONS.BUILD_DIRECTION, directions};
+  return {type: ACTIONS.DIRECTION_BUILD, directions};
 }

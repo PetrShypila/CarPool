@@ -11,9 +11,7 @@ class MarkerWrapper extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.markerClicled = this.markerClicled.bind(this);
-    //this.toggleInfoBox = this.toggleInfoBox.bind(this);
-    //this.buildRouteToHost = this.buildRouteToHost.bind(this);
+    this.markerClicked = this.markerClicked.bind(this);
   }
 
   toggleInfoBox() {
@@ -29,7 +27,7 @@ class MarkerWrapper extends React.Component {
     this.props.actions.buildRouteToHost(direction);
   }
 
-  markerClicled() {
+  markerClicked() {
     this.toggleInfoBox();
     this.buildRouteToHost();
   }
@@ -41,7 +39,7 @@ class MarkerWrapper extends React.Component {
                      url: this.props.marker.icon,
                      scaledSize: {height: 64, width: 64}
                    }}
-                   onClick={this.markerClicled}
+                   onClick={this.markerClicked}
     >
       {this.props.marker.infoBoxVisible &&
       <InfoWindow>

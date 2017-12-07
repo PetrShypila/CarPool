@@ -2,7 +2,7 @@ import * as ACTIONS from '../actions/actionTypes';
 import MarkersApi from '../api/MarkersApi';
 
 export function showMarkerInfoBox(markerId) {
-  return {type: ACTIONS.SHOW_MARKER_INFOBOX, markerId};
+  return {type: ACTIONS.MARKER_SHOW_INFOBOX, markerId};
 }
 
 export function loadMarkers() {
@@ -19,5 +19,5 @@ export function loadMarkers() {
 }
 
 function loadMarkersSuccess(markers) {
-  return { type: ACTIONS.LOAD_MARKERS_SUCCESS, markers };
+  return { type: ACTIONS.MARKERS_LOAD_SUCCESS, markers };
 }

@@ -4,10 +4,10 @@ import initialState from './initialState';
 export default function markersReducer(state = initialState.markers, action){
   switch (action.type) {
 
-    case ACTIONS.LOAD_MARKERS_SUCCESS:
+    case ACTIONS.MARKERS_LOAD_SUCCESS:
       return action.markers;
 
-    case ACTIONS.SHOW_MARKER_INFOBOX: {
+    case ACTIONS.MARKER_SHOW_INFOBOX: {
       return state.map(m => {
 
         let marker = Object.assign({}, m);

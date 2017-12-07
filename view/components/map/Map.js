@@ -10,15 +10,21 @@ import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClust
 import MarkerWrapper from './MarkerWrapper';
 import * as markerActions from '../../actions/markerActions';
 import * as Constants from '../../store/constants';
+import * as directionsActions from "../../actions/directionsActions";
 
 class Map extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+    this.onMapClick = this.onMapClick.bind(this);
   }
 
   componentDidMount() {
     this.props.actions.loadMarkers();
+  }
+
+  onMapClick() {
+    this.props.actions.cleanRoutes();
   }
 
   render() {
@@ -28,6 +34,7 @@ class Map extends React.Component {
       <GoogleMap
         defaultZoom= {Constants.MAP_DEF_ZOOM}
         defaultCenter={Constants.MAP_CENTER}
+        onClick={this.onMapClick}
       >
         <MarkerClusterer
           averageCenter
@@ -38,7 +45,7 @@ class Map extends React.Component {
           <MarkerWrapper key={m._id} marker={m} />
         ))}
         </MarkerClusterer>
-        {this.props.directions && <DirectionsRenderer directions={this.props.directions} />}
+        {this.props.directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={this.props.directions} />}
       </GoogleMap>
     );
   }
@@ -46,9 +53,12 @@ class Map extends React.Component {
 
 Map.propTypes = {
   isMarkerShown : PropTypes.bool.isRequired,
-  actions : PropTypes.object.isRequired,
   markers : PropTypes.array.isRequired,
-  directions : PropTypes.object
+  directions : PropTypes.object,
+  actions : PropTypes.shape({
+    loadMarkers: PropTypes.func.isRequired,
+    cleanRoutes: PropTypes.func.isRequired
+  }),
 };
 
 function mapStateToProps(state, ownProps) {
@@ -60,7 +70,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(markerActions, dispatch)
+    actions: bindActionCreators(Object.assign({}, markerActions, directionsActions), dispatch)
   };
 }
 
