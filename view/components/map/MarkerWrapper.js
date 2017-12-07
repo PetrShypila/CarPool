@@ -42,7 +42,7 @@ class MarkerWrapper extends React.Component {
                    onClick={this.markerClicked}
     >
       {this.props.marker.infoBoxVisible &&
-      <InfoWindow>
+      <InfoWindow onCloseClick={this.markerClicked} >
         <div>Hello World!</div>
       </InfoWindow>
       }

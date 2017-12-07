@@ -7,11 +7,22 @@ export default function markersReducer(state = initialState.markers, action){
     case ACTIONS.MARKERS_LOAD_SUCCESS:
       return action.markers;
 
+    case ACTIONS.MARKER_HIDE_INFOBOXES:
+      return state.map(m => {
+
+        let marker = Object.assign({}, m);
+        marker.infoBoxVisible = false;
+
+        return marker;
+      });
+
     case ACTIONS.MARKER_SHOW_INFOBOX: {
       return state.map(m => {
 
         let marker = Object.assign({}, m);
-        marker.infoBoxVisible = marker._id === action.markerId;
+
+        if(marker._id === action.markerId) marker.infoBoxVisible = !marker.infoBoxVisible;
+
         return marker;
       });
     }

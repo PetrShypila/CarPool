@@ -5,6 +5,10 @@ export function showMarkerInfoBox(markerId) {
   return {type: ACTIONS.MARKER_SHOW_INFOBOX, markerId};
 }
 
+export function hideAllInfoBoxes() {
+  return {type: ACTIONS.MARKER_HIDE_INFOBOXES};
+}
+
 export function loadMarkers() {
 
   return function (dispatch) {

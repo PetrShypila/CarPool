@@ -25,6 +25,7 @@ class Map extends React.Component {
 
   onMapClick() {
     this.props.actions.cleanRoutes();
+    this.props.actions.hideAllInfoBoxes();
   }
 
   render() {
@@ -57,7 +58,8 @@ Map.propTypes = {
   directions : PropTypes.object,
   actions : PropTypes.shape({
     loadMarkers: PropTypes.func.isRequired,
-    cleanRoutes: PropTypes.func.isRequired
+    cleanRoutes: PropTypes.func.isRequired,
+    hideAllInfoBoxes: PropTypes.func.isRequired
   }),
 };
 
