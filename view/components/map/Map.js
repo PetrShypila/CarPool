@@ -1,15 +1,16 @@
-'use strict';
+/* eslint-disable no-undef */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "react-google-maps";
-import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 
 import MarkerWrapper from './MarkerWrapper';
-import * as markerActions from '../../actions/markerActions';
+import CheckBoxInput from '../common/CheckBoxInput';
 import * as Constants from '../../store/constants';
+import * as markerActions from '../../actions/markerActions';
 import * as directionsActions from "../../actions/directionsActions";
 
 class Map extends React.Component {
@@ -17,9 +18,12 @@ class Map extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.state = {
+      markers:[]
+    };
+
     this.onMapClick = this.onMapClick.bind(this);
-    this.filterUsers = this.filterUsers.bind(this);
-    this.filterDrivers = this.filterDrivers.bind(this);
+    this.filterMarkers = this.filterMarkers.bind(this);
   }
 
   componentDidMount() {
@@ -31,12 +35,12 @@ class Map extends React.Component {
     this.props.actions.hideAllInfoBoxes();
   }
 
-  filterUsers(){
-    this.props.actions.filterMarkers('user');
-  }
-
-  filterDrivers(){
-    this.props.actions.filterMarkers('driver');
+  filterMarkers(event){
+    if(event.target.checked) {
+      this.props.actions.addToMap(event.target.value);
+    } else {
+      this.props.actions.hideFromMap(event.target.value);
+    }
   }
 
   render() {
@@ -45,24 +49,18 @@ class Map extends React.Component {
     return (
       <div>
         <div className="filter-buttons">
-          <div onClick={this.filterUsers}>Users</div>
-          <div onClick={this.filterDrivers}>Drivers</div>
+          <CheckBoxInput name={"rider-filter"} label={"Riders"} value={'passenger'} onChange={this.filterMarkers}/>
+          <CheckBoxInput name={"driver-filter"} label={"Drivers"} value={'driver'} onChange={this.filterMarkers}/>
         </div>
           <GoogleMap
             defaultZoom= {Constants.MAP_DEF_ZOOM}
             defaultCenter={Constants.MAP_CENTER}
             onClick={this.onMapClick}
-            options={{disableDefaultUI: true}}
+            options={{disableDefaultUI: true, zoomControl: true, zoomControlOptions: { style: google.maps.ZoomControlStyle.LARGE }}}
           >
-            <MarkerClusterer
-              averageCenter
-              enableRetinaIcons
-              gridSize={10}
-            >
-              {markers.map(m => (
-                <MarkerWrapper key={m._id} marker={m} />
-              ))}
-            </MarkerClusterer>
+            {markers.map(m => (
+              <MarkerWrapper key={m._id} marker={m} />
+            ))}
             {this.props.directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={this.props.directions} />}
           </GoogleMap>
       </div>
@@ -77,7 +75,8 @@ Map.propTypes = {
   actions : PropTypes.shape({
     loadMarkers: PropTypes.func.isRequired,
     cleanRoutes: PropTypes.func.isRequired,
-    filterMarkers: PropTypes.func.isRequired,
+    addToMap: PropTypes.func.isRequired,
+    hideFromMap: PropTypes.func.isRequired,
     hideAllInfoBoxes: PropTypes.func.isRequired
   }),
 };

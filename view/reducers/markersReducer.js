@@ -28,11 +28,27 @@ export default function markersReducer(state = initialState.markers, action){
       });
     }
 
-    case ACTIONS.MARKERS_FILTER: {
+    case ACTIONS.MARKERS_ADD_TO_MAP: {
       return state.map(m => {
 
         let marker = Object.assign({}, m);
-        marker.visible = marker.type === action.markerType;
+
+        if(marker.type === action.markerType) {
+          marker.visible = true;
+        }
+
+        return marker;
+      });
+    }
+
+    case ACTIONS.MARKERS_HIDE_FROM_MAP: {
+      return state.map(m => {
+
+        let marker = Object.assign({}, m);
+
+        if(marker.type === action.markerType) {
+          marker.visible = false;
+        }
 
         return marker;
       });

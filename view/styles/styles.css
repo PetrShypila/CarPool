@@ -18,6 +18,8 @@ html, body {
 }
 
 .filter-buttons {
+  margin: 10px;
+  padding: 5px;
   background-color: white;
   position: absolute;
   z-index: 1;

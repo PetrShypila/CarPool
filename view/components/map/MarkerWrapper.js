@@ -7,7 +7,15 @@ import * as directionsActions from '../../actions/directionsActions';
 
 import { Marker, InfoWindow } from "react-google-maps";
 
+const markerIcons = {
+  company: "http://www.myiconfinder.com/uploads/iconsets/256-256-a5485b563efc4511e0cd8bd04ad0fe9e.png",
+  driver: "https://d30y9cdsu7xlg0.cloudfront.net/png/5551-200.png",
+  passenger: "http://www.myiconfinder.com/uploads/iconsets/256-256-76f453c62108782f0cad9bfc2da1ae9d.png",
+};
+
 class MarkerWrapper extends React.Component {
+
+
   constructor(props, context) {
     super(props, context);
 
@@ -28,6 +36,7 @@ class MarkerWrapper extends React.Component {
   }
 
   markerClicked() {
+    this.props.actions.hideAllInfoBoxes();
     this.toggleInfoBox();
     this.buildRouteToHost();
   }
@@ -36,14 +45,14 @@ class MarkerWrapper extends React.Component {
     return <Marker key={this.props.marker._id}
                    position={this.props.marker.coordinates}
                    defaultIcon={{
-                     url: this.props.marker.icon,
+                     url: markerIcons[this.props.marker.type],
                      scaledSize: {height: 64, width: 64}
                    }}
                    visible={this.props.marker.visible}
                    onClick={this.markerClicked}
     >
       {this.props.marker.infoBoxVisible &&
-      <InfoWindow onCloseClick={this.markerClicked} >
+      <InfoWindow onCloseClick={this.toggleInfoBox} >
         <div>Hello World!</div>
       </InfoWindow>
       }
@@ -56,7 +65,8 @@ MarkerWrapper.propTypes = {
   marker: PropTypes.object.isRequired,
   actions: PropTypes.shape({
     showMarkerInfoBox: PropTypes.func.isRequired,
-    buildRouteToHost: PropTypes.func.isRequired
+    buildRouteToHost: PropTypes.func.isRequired,
+    hideAllInfoBoxes: PropTypes.func.isRequired
   })
 };
 
