@@ -1,4 +1,4 @@
-import Marker from '../models/markersModels';
+import Marker from '../models/markers';
 
 export function getMarkers() {
   return new Promise((resolve, reject) => {

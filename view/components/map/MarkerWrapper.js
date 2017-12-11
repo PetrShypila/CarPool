@@ -2,15 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
-import * as markerActions from '../../actions/markerActions';
+import * as markerActions from '../../actions/markersActions';
 import * as directionsActions from '../../actions/directionsActions';
 
 import { Marker, InfoWindow } from "react-google-maps";
+import UserInfoBox from './UserInfoBox';
 
 const markerIcons = {
-  company: "http://www.myiconfinder.com/uploads/iconsets/256-256-a5485b563efc4511e0cd8bd04ad0fe9e.png",
-  driver: "https://d30y9cdsu7xlg0.cloudfront.net/png/5551-200.png",
-  passenger: "http://www.myiconfinder.com/uploads/iconsets/256-256-76f453c62108782f0cad9bfc2da1ae9d.png",
+  company: "http://maps.gstatic.com/mapfiles/ms2/micons/rangerstation.png",
+  driver: "http://maps.gstatic.com/mapfiles/ms2/micons/red.png",
+  passenger: "http://maps.gstatic.com/mapfiles/ms2/micons/blue.png",
 };
 
 class MarkerWrapper extends React.Component {
@@ -46,16 +47,12 @@ class MarkerWrapper extends React.Component {
                    position={this.props.marker.coordinates}
                    defaultIcon={{
                      url: markerIcons[this.props.marker.type],
-                     scaledSize: {height: 64, width: 64}
+                     scaledSize: {height: 32, width: 32}
                    }}
                    visible={this.props.marker.visible}
                    onClick={this.markerClicked}
     >
-      {this.props.marker.infoBoxVisible &&
-      <InfoWindow onCloseClick={this.toggleInfoBox} >
-        <div>Hello World!</div>
-      </InfoWindow>
-      }
+      { this.props.marker.infoBoxVisible && <UserInfoBox username={this.props.marker.username}/> }
     </Marker>;
   }
 }

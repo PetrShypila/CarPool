@@ -6,6 +6,7 @@ import open from 'open';
 /* eslint-disable no-console */
 
 import * as markersService from '../api/v1/db/service/markersService';
+import * as usersService from '../api/v1/db/service/usersService';
 import config from '../webpack.config.dev';
 
 const port = 3001;
@@ -22,6 +23,12 @@ app.use(require('webpack-hot-middleware')(compiler));
 app.get('/api/v1/markers', function(req, res) {
   markersService.getMarkers().then((markers) => {
     res.json(markers);
+  });
+});
+
+app.get('/api/v1/users', function(req, res) {
+  usersService.getUsers().then((users) => {
+    res.json(users);
   });
 });
 

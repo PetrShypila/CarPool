@@ -10,7 +10,8 @@ import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "reac
 import MarkerWrapper from './MarkerWrapper';
 import CheckBoxInput from '../common/CheckBoxInput';
 import * as Constants from '../../store/constants';
-import * as markerActions from '../../actions/markerActions';
+import * as markerActions from '../../actions/markersActions';
+import * as usersActions from "../../actions/usersActions";
 import * as directionsActions from "../../actions/directionsActions";
 
 class Map extends React.Component {
@@ -28,6 +29,7 @@ class Map extends React.Component {
 
   componentDidMount() {
     this.props.actions.loadMarkers();
+    this.props.actions.loadUsers();
   }
 
   onMapClick() {
@@ -49,7 +51,7 @@ class Map extends React.Component {
     return (
       <div>
         <div className="filter-buttons">
-          <CheckBoxInput name={"rider-filter"} label={"Riders"} value={'passenger'} onChange={this.filterMarkers}/>
+          <CheckBoxInput name={"passenger-filter"} label={"Passengers"} value={'passenger'} onChange={this.filterMarkers}/>
           <CheckBoxInput name={"driver-filter"} label={"Drivers"} value={'driver'} onChange={this.filterMarkers}/>
         </div>
           <GoogleMap
@@ -74,6 +76,7 @@ Map.propTypes = {
   directions : PropTypes.object,
   actions : PropTypes.shape({
     loadMarkers: PropTypes.func.isRequired,
+    loadUsers: PropTypes.func.isRequired,
     cleanRoutes: PropTypes.func.isRequired,
     addToMap: PropTypes.func.isRequired,
     hideFromMap: PropTypes.func.isRequired,
@@ -90,7 +93,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign({}, markerActions, directionsActions), dispatch)
+    actions: bindActionCreators(Object.assign({}, markerActions, directionsActions, usersActions), dispatch)
   };
 }
 

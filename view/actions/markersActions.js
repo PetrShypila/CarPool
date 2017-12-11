@@ -21,8 +21,8 @@ export function loadMarkers() {
 
   return function (dispatch) {
 
-    return MarkersApi.getAllMarkers().then(courses => {
-      dispatch(loadMarkersSuccess(courses));
+    return MarkersApi.getAllMarkers().then(markers => {
+      dispatch(loadMarkersSuccess(markers));
     }).catch(error => {
       throw(error);
     });
