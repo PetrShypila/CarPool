@@ -9,6 +9,10 @@ export function hideAllInfoBoxes() {
   return {type: ACTIONS.MARKER_HIDE_INFOBOXES};
 }
 
+export function filterMarkers(markerType) {
+  return {type:ACTIONS.MARKERS_FILTER, markerType};
+}
+
 export function loadMarkers() {
 
   return function (dispatch) {

@@ -1,20 +1,24 @@
 /* Styles */
-html{
-}
-
-body {
-  margin: 0 0 0 0;
+html, body {
+  min-height: 100%;
+  margin: 0;
 }
 
 #app {
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #4d4d4d;
+  min-height: 100%;
+  margin: 0;
 }
 
-a.active {
-  color: orange;
+#mapElement {
+  position: absolute;
+  min-height: 100%;
+  min-width: 100%
 }
 
-nav {
-  padding-top: 20px;
+.filter-buttons {
+  background-color: white;
+  position: absolute;
+  z-index: 1;
 }

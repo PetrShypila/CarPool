@@ -39,6 +39,7 @@ class MarkerWrapper extends React.Component {
                      url: this.props.marker.icon,
                      scaledSize: {height: 64, width: 64}
                    }}
+                   visible={this.props.marker.visible}
                    onClick={this.markerClicked}
     >
       {this.props.marker.infoBoxVisible &&
