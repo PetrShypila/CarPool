@@ -21,6 +21,7 @@ class MarkerWrapper extends React.Component {
     super(props, context);
 
     this.markerClicked = this.markerClicked.bind(this);
+    this.toggleInfoBox = this.toggleInfoBox.bind(this);
   }
 
   toggleInfoBox() {
@@ -52,7 +53,7 @@ class MarkerWrapper extends React.Component {
                    visible={this.props.marker.visible}
                    onClick={this.markerClicked}
     >
-      { this.props.marker.infoBoxVisible && <UserInfoBox username={this.props.marker.username}/> }
+      { this.props.marker.infoBoxVisible && <UserInfoBox username={this.props.marker.username} toggleInfoBox={this.toggleInfoBox}/> }
     </Marker>;
   }
 }

@@ -18,10 +18,13 @@ class UserInfoBox extends React.Component {
     return (
       <InfoWindow onCloseClick={this.props.toggleInfoBox} >
         {this.props.user ?
-          <div>
-            <div>{`${this.props.user.firstName} ${this.props.user.lastName}`}</div>
-            <div>{`${this.props.user.email}`}</div>
-            <div>{`+${this.props.user.phone}`}</div>
+          <div style={{maxWidth: '300px', display:'inline-flex'}}>
+            <img src={this.props.user.pic} alt="Mountain View" style={{width:'30%', maxWidth:'80px', maxHeight:'80px'}} />
+            <div style={{marginLeft:'10px'}}>
+              <div><b>{`${this.props.user.firstName} ${this.props.user.lastName}`}</b></div>
+              <div><a href={`mailto:${this.props.user.email}`}>{`${this.props.user.email}`}</a></div>
+              <div>{`+${this.props.user.phone}`}</div>
+            </div>
           </div> :
           <div>{this.props.username}</div>}
       </InfoWindow>
@@ -29,7 +32,7 @@ class UserInfoBox extends React.Component {
   }
 }
 
-Map.propTypes = {
+UserInfoBox.propTypes = {
   username : PropTypes.string.isRequired,
   user : PropTypes.object.isRequired,
   toggleInfoBox : PropTypes.func.isRequired
