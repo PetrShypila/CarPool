@@ -24,3 +24,18 @@ html, body {
   position: absolute;
   z-index: 1;
 }
+
+.user-info-box {
+  max-width: 240px;
+  display: inline-flex;
+}
+
+.user-pic {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.user-info {
+  margin-left:10px;
+}
+

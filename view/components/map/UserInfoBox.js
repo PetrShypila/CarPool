@@ -15,13 +15,15 @@ class UserInfoBox extends React.Component {
   }
 
   render() {
+    const userFullName = `${this.props.user.firstName} ${this.props.user.lastName}`;
+
     return (
       <InfoWindow onCloseClick={this.props.toggleInfoBox} >
         {this.props.user ?
-          <div style={{maxWidth: '300px', display:'inline-flex'}}>
-            <img src={this.props.user.pic} alt="Mountain View" style={{width:'30%', maxWidth:'80px', maxHeight:'80px'}} />
-            <div style={{marginLeft:'10px'}}>
-              <div><b>{`${this.props.user.firstName} ${this.props.user.lastName}`}</b></div>
+          <div className="user-info-box">
+            <img src={this.props.user.pic} alt={userFullName} className="user-pic" />
+            <div className="user-info">
+              <div><b>{userFullName}</b></div>
               <div><a href={`mailto:${this.props.user.email}`}>{`${this.props.user.email}`}</a></div>
               <div>{`+${this.props.user.phone}`}</div>
             </div>

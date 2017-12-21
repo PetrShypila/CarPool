@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "Enterprise car pooling solution",
   "scripts": {
-    "prestart": "babel-node tools/startMessage",
+    "prestart": "babel-node --inspect tools/startMessage",
     "start": "JWT_SECRET=83c7483q9cvp npm-run-all --parallel open:src lint:watch",
-    "open:src": "babel-node tools/srcServer",
+    "open:src": "babel-node --inspect tools/srcServer",
     "lint": "node_modules/.bin/esw webpack.config.* view tools",
     "lint:watch": "npm run lint -- --watch"
   },
@@ -13,6 +13,7 @@
   "license": "Propietary",
   "dependencies": {
     "babel-polyfill": "6.26.0",
+    "body-parser": "^1.18.2",
     "bootstrap": "3.3.7",
     "history": "4.6.3",
     "jquery": "3.2.1",
