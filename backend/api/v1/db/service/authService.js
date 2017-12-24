@@ -27,10 +27,20 @@ export function authenticate(req, res, next) {
 
 // Access rights
 export function authorize(req, res, next) {
+
   let {user} = req.session;
+
   if (user) {
-    next();
+    if(req.url === '/') {
+      res.redirect('/map');
+    } else {
+      next();
+    }
   } else {
-    res.redirect('/login');
+    if(req.url === '/') {
+      res.redirect('/login');
+    } else {
+      next({status: 401, message:"Unautharized"});
+    }
   }
 }
