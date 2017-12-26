@@ -5,7 +5,7 @@ export default {
   devtool: 'inline-source-map',
   entry: [
     'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
-    path.resolve(__dirname, 'view/index')
+    path.resolve(__dirname, 'app/view/index')
   ],
   target: 'web',
   output: {
@@ -14,7 +14,7 @@ export default {
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'view')
+    contentBase: path.resolve(__dirname, 'app/view')
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -22,8 +22,8 @@ export default {
   ],
   module: {
     rules: [
-      {test: /\.js$/, include: path.join(__dirname, 'view'), use: ['babel-loader']},
-      {test: /(\.css)$/, use: ['style-loader', 'css-loader']}
+      {test: /\.js$/, include: path.join(__dirname, 'app/view'), use: ['babel-loader']},
+      {test: /(\.css)$/, include: path.join(__dirname, 'app/view/styles'), use: ['style-loader', 'css-loader']}
     ]
   }
 };

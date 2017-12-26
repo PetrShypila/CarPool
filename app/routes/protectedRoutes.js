@@ -1,0 +1,14 @@
+import path from 'path';
+import express from 'express';
+
+import MarkersService from '../actions/services/markersService';
+import UsersService from '../actions/services/usersService';
+import security from '../security';
+
+const protectedRouter = express.Router();
+
+protectedRouter.get('/home', security.protectedAccess, (req, res) => (res.sendFile(path.join( __dirname, '../view/index.html'))));
+protectedRouter.get('/api/v1/users', security.protectedAccess, UsersService.getAllUsers);
+protectedRouter.get('/api/v1/markers', security.protectedAccess, MarkersService.getMarkers);
+
+export default protectedRouter;
