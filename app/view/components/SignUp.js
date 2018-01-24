@@ -25,8 +25,7 @@ class SignUp extends React.Component {
       password: this.state.password,
       firstname: this.state.firstname,
       lastname: this.state.lastname,
-      phone: this.state.phone,
-      email: this.state.email
+      phone: this.state.phone
     };
 
     authActions.signupUser(user);
@@ -60,10 +59,6 @@ class SignUp extends React.Component {
         <label>
           Phone Number:
           <input type="text" name="phone" value={this.state.phone} onChange={this.updateValue} />
-        </label>
-        <label>
-          Email:
-          <input type="email" name="email" value={this.state.email} onChange={this.updateValue} />
         </label>
         <input type="submit" value="Submit" />
       </form>

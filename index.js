@@ -1,14 +1,14 @@
 import app from './app';
-import colors from 'colors';
+import logger from './app/logging';
 
 const port = process.env.PORT || 3000;
 
-console.log('Starting app in dev mode...'.green);
+logger.info('Starting app in dev mode...');
 
 app.listen(port, function (err) {
   if (err) {
     throw err
   }
 
-  console.log(`server is listening on ${port}...`.blue);
+  logger.info(`server is listening on ${port}...`);
 });

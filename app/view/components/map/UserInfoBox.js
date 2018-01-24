@@ -14,21 +14,31 @@ class UserInfoBox extends React.Component {
     super(props, context);
   }
 
+  buildInfoBox(user) {
+    if(user) {
+      return (
+        <div className="user-info-box">
+          <img src={this.props.user.pic} alt={userFullName} className="user-pic" />
+          <div className="user-info">
+            <div><b>{userFullName}</b></div>
+            <div><a href={`mailto:${this.props.user.username}`}>{`${this.props.user.username}`}</a></div>
+            <div>{`+${this.props.user.phone}`}</div>
+          </div>
+        </div>
+      );
+    }
+  }
+
   render() {
     const userFullName = `${this.props.user.firstName} ${this.props.user.lastName}`;
 
     return (
       <InfoWindow onCloseClick={this.props.toggleInfoBox} >
-        {this.props.user ?
-          <div className="user-info-box">
-            <img src={this.props.user.pic} alt={userFullName} className="user-pic" />
-            <div className="user-info">
-              <div><b>{userFullName}</b></div>
-              <div><a href={`mailto:${this.props.user.email}`}>{`${this.props.user.email}`}</a></div>
-              <div>{`+${this.props.user.phone}`}</div>
-            </div>
-          </div> :
-          <div>{this.props.username}</div>}
+        {
+          this.props.user ?
+          this.buildInfoBox(this.props.user) :
+          <div>{this.props.username}</div>
+        }
       </InfoWindow>
     );
   }
