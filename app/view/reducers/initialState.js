@@ -1,5 +1,6 @@
 export default {
   markers: [],
   users: [],
-  directions: null
+  directions: null,
+  activeUser: null
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as authActions from '../actions/authActions';
+import * as authActions from '../../actions/authActions';
 
 class SignUp extends React.Component {
 

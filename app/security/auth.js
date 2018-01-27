@@ -21,7 +21,7 @@ function login(req, res) {
             res.redirect(firstLogin ? '/profile' : '/home');
           });
         }).catch(error => {
-          res.status(500).json(error);
+          res.status(500).json({error: error.message});
         });
 
         break;
@@ -36,8 +36,8 @@ function login(req, res) {
         res.status(response.status).send("Unexpected error."); break;
     }
   }).catch(error => {
-    logger.error(`Cannot login user ${req.body.username}`);
-    res.status(500).json(error);
+    logger.error(`Cannot login user ${req.body.username}. Error message: ${JSON.stringify(error.message)}`);
+    res.status(500).json({error: error.message});
   });
 }
 
@@ -45,8 +45,7 @@ function signup(req, res) {
   UserService.signupUser(req.body).then(response => {
     switch(response.status) {
       case 201:
-        res.redirect('/login');
-        break;
+        res.redirect('/login'); break;
       case 500:
       case 409:
         res.status(response.status).end(); break;
@@ -54,7 +53,7 @@ function signup(req, res) {
         res.status(response.status).send("Unexpected error."); break;
     }
   }).catch(error => {
-    res.status(500).json(error);
+    res.status(500).json({error: error.message});
   });
 
 }

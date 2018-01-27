@@ -14,6 +14,23 @@ export function loadUsers() {
   };
 }
 
+export function loadActiveUser() {
+
+  return function (dispatch) {
+
+    return UsersApi.getActiveUser().then(user => {
+      dispatch(loadActiveUserSuccess(user));
+    }).catch(error => {
+      throw(error);
+    });
+
+  };
+}
+
 function loadUsersSuccess(users) {
   return { type: ACTIONS.USERS_LOAD_SUCCESS, users };
+}
+
+function loadActiveUserSuccess(activeUser) {
+  return { type: ACTIONS.ACTIVE_USER_LOADED, activeUser };
 }

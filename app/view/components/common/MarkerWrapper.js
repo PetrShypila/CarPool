@@ -5,13 +5,15 @@ import PropTypes from 'prop-types';
 import * as markerActions from '../../actions/markersActions';
 import * as directionsActions from '../../actions/directionsActions';
 
-import { Marker, InfoWindow } from "react-google-maps";
+import { Marker } from "react-google-maps";
 import UserInfoBox from './UserInfoBox';
 
 const markerIcons = {
   company: "http://maps.gstatic.com/mapfiles/ms2/micons/rangerstation.png",
-  driver: "http://maps.gstatic.com/mapfiles/ms2/micons/red.png",
-  passenger: "http://maps.gstatic.com/mapfiles/ms2/micons/blue.png",
+  driver: "http://maps.gstatic.com/mapfiles/ms2/micons/cabs.png",
+  passenger: "http://maps.gstatic.com/mapfiles/ms2/micons/man.png",
+  both: "http://maps.gstatic.com/mapfiles/ms2/micons/ferry.png",
+  user: "http://maps.gstatic.com/mapfiles/ms2/micons/homegardenbusiness.png",
 };
 
 class MarkerWrapper extends React.Component {

@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "react-google-maps";
 
-import MarkerWrapper from './MarkerWrapper';
+import MarkerWrapper from '../common/MarkerWrapper';
 import CheckBoxInput from '../common/CheckBoxInput';
 import * as Constants from '../../store/constants';
 import * as markerActions from '../../actions/markersActions';
@@ -54,17 +54,17 @@ class Map extends React.Component {
           <CheckBoxInput name={"passenger-filter"} label={"Passengers"} value={'passenger'} onChange={this.filterMarkers}/>
           <CheckBoxInput name={"driver-filter"} label={"Drivers"} value={'driver'} onChange={this.filterMarkers}/>
         </div>
-          <GoogleMap
-            defaultZoom= {Constants.MAP_DEF_ZOOM}
-            defaultCenter={Constants.MAP_CENTER}
-            onClick={this.onMapClick}
-            options={{disableDefaultUI: true, zoomControl: true, zoomControlOptions: { style: google.maps.ZoomControlStyle.LARGE }}}
-          >
-            {markers.map(m => (
-              <MarkerWrapper key={m._id} marker={m} />
-            ))}
-            {this.props.directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={this.props.directions} />}
-          </GoogleMap>
+        <GoogleMap
+          defaultZoom= {Constants.MAP_DEF_ZOOM}
+          defaultCenter={Constants.MAP_CENTER}
+          onClick={this.onMapClick}
+          options={{disableDefaultUI: true, zoomControl: true, zoomControlOptions: { style: google.maps.ZoomControlStyle.LARGE }}}
+        >
+          {markers.map(m => (
+            <MarkerWrapper key={m._id} marker={m} />
+          ))}
+          {this.props.directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={this.props.directions} />}
+        </GoogleMap>
       </div>
     );
   }

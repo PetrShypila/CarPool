@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import mongoose from 'mongoose';
-import colors from 'colors';
+import logger from '../logging';
 
 mongoose.connect('mongodb://localhost:27017/CarPool', { useMongoClient: true });
 mongoose.Promise = global.Promise;
 
 let db = mongoose.connection;
-db.once('error', console.error.bind(console, 'connection error:'.red));
-db.once('open', () => { console.log("Successfully connected to DB!\n".blue); });
+db.once('error', (error) => { logger.error(`Database connection error:${error.message}`); });
+db.once('open', () => { logger.info("Successfully connected to DB!"); });
 
 export default mongoose;

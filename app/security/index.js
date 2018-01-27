@@ -2,6 +2,7 @@ import session from 'express-session';
 
 import sessionStore from './sessionstore';
 import auth from './auth';
+import logout from './logout';
 import publicAccess from './publicAccess';
 import protectedAccess from './protectedAccess';
 
@@ -23,6 +24,7 @@ function init(app) {
 
 export default {
   init,
+  logout,
   publicAccess,
   protectedAccess,
   auth
