@@ -7,13 +7,13 @@ import * as directionsActions from '../../actions/directionsActions';
 
 import { Marker } from "react-google-maps";
 import UserInfoBox from './UserInfoBox';
+import * as constants from "../../store/constants";
 
 const markerIcons = {
-  company: "http://maps.gstatic.com/mapfiles/ms2/micons/rangerstation.png",
-  driver: "http://maps.gstatic.com/mapfiles/ms2/micons/cabs.png",
-  passenger: "http://maps.gstatic.com/mapfiles/ms2/micons/man.png",
-  both: "http://maps.gstatic.com/mapfiles/ms2/micons/ferry.png",
-  user: "http://maps.gstatic.com/mapfiles/ms2/micons/homegardenbusiness.png",
+  [constants.TYPE_COMPANY]: "http://maps.gstatic.com/mapfiles/ms2/micons/rangerstation.png",
+  [constants.TYPE_DRIVER]: "http://maps.gstatic.com/mapfiles/ms2/micons/cabs.png",
+  [constants.TYPE_PASSENGER]: "http://maps.gstatic.com/mapfiles/ms2/micons/man.png",
+  [constants.TYPE_USER]: "http://maps.gstatic.com/mapfiles/ms2/micons/homegardenbusiness.png",
 };
 
 class MarkerWrapper extends React.Component {
@@ -71,7 +71,7 @@ MarkerWrapper.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const host = state.markers.find(marker => marker.type === 'company' ? marker : false);
+  const host = state.markers.find(marker => marker.type === constants.TYPE_COMPANY ? marker : false);
 
   return {
     host: host

@@ -13,6 +13,7 @@ import * as Constants from '../../store/constants';
 import * as markerActions from '../../actions/markersActions';
 import * as usersActions from "../../actions/usersActions";
 import * as directionsActions from "../../actions/directionsActions";
+import {Link} from "react-router-dom";
 
 class Map extends React.Component {
 
@@ -58,7 +59,7 @@ class Map extends React.Component {
     const {markers, directions, activeUser} = this.props;
 
     return (
-      <div>
+      <div style={{display: "flex"}}>
         <div className="filter-buttons">
           <CheckBoxInput name={"types-filter"}
                          label={"Passengers"}
@@ -85,6 +86,10 @@ class Map extends React.Component {
           })}
           {directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={directions} />}
         </GoogleMap>
+        <div className="control-buttons">
+          <Link to={`/profile`}>Profile</Link>
+          <Link to={`/logout`}>Logout</Link>
+        </div>
       </div>
     );
   }
