@@ -20,7 +20,11 @@ class Map extends React.Component {
     super(props, context);
 
     this.state = {
-      markers:[]
+      markers:[],
+      types: {
+        [Constants.TYPE_DRIVER]: true,
+        [Constants.TYPE_PASSENGER]: true,
+      }
     };
 
     this.onMapClick = this.onMapClick.bind(this);
@@ -38,6 +42,10 @@ class Map extends React.Component {
   }
 
   filterMarkers(event){
+    const {types} = this.state;
+    types[event.target.value] = event.target.checked;
+    this.setState({types});
+
     if(event.target.checked) {
       this.props.actions.addToMap(event.target.value);
     } else {
@@ -51,8 +59,18 @@ class Map extends React.Component {
     return (
       <div>
         <div className="filter-buttons">
-          <CheckBoxInput name={"passenger-filter"} label={"Passengers"} value={'passenger'} onChange={this.filterMarkers}/>
-          <CheckBoxInput name={"driver-filter"} label={"Drivers"} value={'driver'} onChange={this.filterMarkers}/>
+          <CheckBoxInput name={"types-filter"}
+                         label={"Passengers"}
+                         value={Constants.TYPE_PASSENGER}
+                         checked={this.state.types[Constants.TYPE_PASSENGER]}
+                         onChange={this.filterMarkers}
+          />
+          <CheckBoxInput name={"types-filter"}
+                         label={"Drivers"}
+                         value={Constants.TYPE_DRIVER}
+                         checked={this.state.types[Constants.TYPE_DRIVER]}
+                         onChange={this.filterMarkers}
+          />
         </div>
         <GoogleMap
           defaultZoom= {Constants.MAP_DEF_ZOOM}

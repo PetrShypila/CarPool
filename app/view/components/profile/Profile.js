@@ -33,12 +33,13 @@ class Profile extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    const {hemoLoc, showMarker, activeUser, activeTypes} = nextProps;
-    this.setState({hemoLoc, showMarker, activeUser, activeTypes});
+    const {homeLoc, showMarker, activeUser, activeTypes} = nextProps;
+    this.setState({homeLoc, showMarker, activeUser, activeTypes});
   }
 
   submitForm(event) {
-    console.log(`submitForm ${JSON.stringify(event.target)}`);
+    console.log(`submitForm ${JSON.stringify(this.state)}`);
+    this.props.actions.updateMarkersForUser(this.state.activeUser.username, this.state.activeTypes, this.state.homeLoc);
     event.preventDefault();
   }
 
@@ -50,13 +51,16 @@ class Profile extends React.Component {
   }
 
   userTypeChange(event) {
-    event.preventDefault();
-    console.log(`userTypeChange ${event.target}`);
+    const {activeTypes} = this.state;
+    activeTypes[event.target.value] = event.target.checked;
+
+    this.setState({activeTypes});
   }
 
   updateMarker(event) {
+    const showMarker = true;
     const homeLoc = {lat: event.latLng.lat(), lng: event.latLng.lng() };
-    this.setState({homeLoc});
+    this.setState({homeLoc, showMarker});
   }
 
   render() {
@@ -91,7 +95,7 @@ function mapStateToProps(state, ownProps) {
 
     state.markers.some(m => {
       if(m.username === containerState.activeUser.username) {
-        containerState.activeTypes[m.type] = m.type;
+        containerState.activeTypes[m.type] = true;
         containerState.homeLoc = m.coordinates;
         containerState.showMarker = true;
       }
@@ -117,7 +121,8 @@ Profile.propTypes = {
 
   actions : PropTypes.shape({
     loadMarkers: PropTypes.func.isRequired,
-    loadActiveUser: PropTypes.func.isRequired
+    loadActiveUser: PropTypes.func.isRequired,
+    updateMarkersForUser: PropTypes.func.isRequired
   }),
 };
 

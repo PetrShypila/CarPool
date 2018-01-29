@@ -17,6 +17,23 @@ export function hideFromMap(markerType) {
   return {type:ACTIONS.MARKERS_HIDE_FROM_MAP, markerType};
 }
 
+export function updateMarkersForUser(username, markerTypes, latLng) {
+  const newMarkers = [];
+
+  Object.keys(markerTypes).forEach(key => {
+    if(markerTypes[key]) {
+      newMarkers.push({
+        type:key,
+        coordinates: latLng
+      });
+    }
+  });
+
+  MarkersApi.updateUserMarkers(newMarkers);
+
+  return {type: ACTIONS.MARKERS_UPDATE_FOR_USERNAME, markers: newMarkers, username};
+}
+
 export function loadMarkers() {
 
   return function (dispatch) {
