@@ -1,7 +1,7 @@
 import * as ACTIONS from '../actions/actionTypes';
 import initialState from './initialState';
 
-export default function directionsReducer(state = initialState.users, action){
+export default function usersReducer(state = initialState.users, action){
   switch (action.type) {
 
     case ACTIONS.USERS_LOAD_SUCCESS:

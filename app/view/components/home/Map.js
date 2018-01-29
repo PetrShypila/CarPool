@@ -33,6 +33,7 @@ class Map extends React.Component {
 
   componentDidMount() {
     this.props.actions.loadMarkers();
+    this.props.actions.loadActiveUser();
     this.props.actions.loadUsers();
   }
 
@@ -54,7 +55,7 @@ class Map extends React.Component {
   }
 
   render() {
-    const {markers} = this.props;
+    const {markers, directions, activeUser} = this.props;
 
     return (
       <div>
@@ -78,10 +79,11 @@ class Map extends React.Component {
           onClick={this.onMapClick}
           options={{disableDefaultUI: true, zoomControl: true, zoomControlOptions: { style: google.maps.ZoomControlStyle.LARGE }}}
         >
-          {markers.map(m => (
-            <MarkerWrapper key={m._id} marker={m} />
-          ))}
-          {this.props.directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={this.props.directions} />}
+          {markers && activeUser && markers.map(m => {
+            m.type = m.username === activeUser.username ? Constants.TYPE_USER : m.type;
+            return <MarkerWrapper key={m._id} marker={m} />;
+          })}
+          {directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={directions} />}
         </GoogleMap>
       </div>
     );
@@ -90,10 +92,12 @@ class Map extends React.Component {
 
 Map.propTypes = {
   isMarkerShown : PropTypes.bool.isRequired,
-  markers : PropTypes.array.isRequired,
+  markers : PropTypes.array,
   directions : PropTypes.object,
+  activeUser : PropTypes.object,
   actions : PropTypes.shape({
     loadMarkers: PropTypes.func.isRequired,
+    loadActiveUser: PropTypes.func.isRequired,
     loadUsers: PropTypes.func.isRequired,
     cleanRoutes: PropTypes.func.isRequired,
     addToMap: PropTypes.func.isRequired,
@@ -103,10 +107,8 @@ Map.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  return {
-    markers: state.markers,
-    directions: state.directions
-  };
+  const {markers, directions, activeUser} = state;
+  return {markers, directions, activeUser};
 }
 
 function mapDispatchToProps(dispatch) {

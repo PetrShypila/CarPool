@@ -18,7 +18,6 @@ class MarkersApi {
   }
 
   static updateUserMarkers(markers) {
-    console.log(`Markers: ${markers}`);
 
     return fetch('/api/v1/updateUserMarkers', {
       method: 'POST',

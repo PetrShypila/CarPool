@@ -56,16 +56,12 @@ export default function markersReducer(state = initialState.markers, action){
 
     case ACTIONS.MARKERS_UPDATE_FOR_USERNAME: {
       const {markers, username} = action;
-      markers.forEach(m => {m.username = username});
-      console.log(`New Markers: ${JSON.stringify(markers)}`);
+      markers.forEach(m => {m.username = username;});
 
-      console.log(`Original Markers: ${JSON.stringify(state)}`);
       const filteredMarkers = state.filter(marker => {
         return marker.username !== username;
       });
-      console.log(`Filtered Markers: ${JSON.stringify(filteredMarkers)}`);
 
-      console.log(`All Markers: ${JSON.stringify(filteredMarkers.concat(markers))}`);
       return filteredMarkers.concat(markers);
     }
 

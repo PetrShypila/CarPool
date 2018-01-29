@@ -38,7 +38,6 @@ class Profile extends React.Component {
   }
 
   submitForm(event) {
-    console.log(`submitForm ${JSON.stringify(this.state)}`);
     this.props.actions.updateMarkersForUser(this.state.activeUser.username, this.state.activeTypes, this.state.homeLoc);
     event.preventDefault();
   }
