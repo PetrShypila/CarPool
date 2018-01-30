@@ -32,5 +32,5 @@ function loadUsersSuccess(users) {
 }
 
 function loadActiveUserSuccess(activeUser) {
-  return { type: ACTIONS.ACTIVE_USER_LOADED, activeUser };
+  return { type: ACTIONS.USER_ACTIVE_LOADED, activeUser };
 }

@@ -4,7 +4,7 @@ import initialState from './initialState';
 export default function activeUserReducer(state = initialState.activeUser, action){
   switch (action.type) {
 
-    case ACTIONS.ACTIVE_USER_LOADED:
+    case ACTIONS.USER_ACTIVE_LOADED:
       return action.activeUser;
 
     default:

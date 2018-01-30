@@ -39,6 +39,25 @@ class AuthApi {
       throw(err);
     });
   }
+
+  static logoutUser() {
+
+    return fetch('/logout', {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin'
+    }).then(res => {
+      if(res.status === 200) {
+        window.location.replace(res.url);
+      }
+    })
+      .catch(err => {
+        throw(err);
+      });
+  }
 }
 
 export default AuthApi;

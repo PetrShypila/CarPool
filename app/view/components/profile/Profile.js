@@ -9,6 +9,8 @@ import * as Constants from "../../store/constants";
 import * as usersActions from "../../actions/usersActions";
 import * as markerActions from "../../actions/markersActions";
 import ProfileMap from "./ProfileMap";
+import {Link} from "react-router-dom";
+import * as authActions from "../../actions/authActions";
 
 class Profile extends React.Component {
 
@@ -25,6 +27,7 @@ class Profile extends React.Component {
     this.userTypeChange = this.userTypeChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.updateMarker = this.updateMarker.bind(this);
+    this.onLogoutClick = this.onLogoutClick.bind(this);
   }
 
   componentDidMount() {
@@ -62,21 +65,33 @@ class Profile extends React.Component {
     this.setState({homeLoc, showMarker});
   }
 
+  onLogoutClick(){
+    this.props.actions.logoutUser();
+  }
+
   render() {
     return (
-      <form onSubmit={this.submitForm}>
-          <ProfileForm user={this.state.activeUser}
-                       types={this.state.activeTypes}
-                       onChange={this.userDataChange}
-                       onCheckBoxChange={this.userTypeChange}
-          />
-          <ProfileMap zoom={Constants.MAP_DEF_ZOOM}
-                      homeLoc={this.state.homeLoc}
-                      showMarker={this.state.showMarker}
-                      onMapClick={this.updateMarker}
-          />
-        <input type="submit" value="Save" />
-      </form>
+      <div>
+        <form onSubmit={this.submitForm}>
+            <ProfileForm user={this.state.activeUser}
+                         types={this.state.activeTypes}
+                         onChange={this.userDataChange}
+                         onCheckBoxChange={this.userTypeChange}
+            />
+            <ProfileMap zoom={Constants.MAP_DEF_ZOOM}
+                        homeLoc={this.state.homeLoc}
+                        showMarker={this.state.showMarker}
+                        onMapClick={this.updateMarker}
+            />
+          <input type="submit" value="Save" />
+        </form>
+        <div className="control-buttons">
+          <Link to={`/home`}>Home</Link>
+          <button onClick={this.onLogoutClick}>
+            Logout
+          </button>
+        </div>
+      </div>
     );
   }
 }
@@ -108,7 +123,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign({}, markerActions, usersActions), dispatch)
+    actions: bindActionCreators(Object.assign({}, markerActions, usersActions, authActions), dispatch)
   };
 }
 
@@ -120,6 +135,7 @@ Profile.propTypes = {
 
   actions : PropTypes.shape({
     loadMarkers: PropTypes.func.isRequired,
+    logoutUser: PropTypes.func.isRequired,
     loadActiveUser: PropTypes.func.isRequired,
     updateMarkersForUser: PropTypes.func.isRequired
   }),

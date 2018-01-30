@@ -13,6 +13,7 @@ import * as Constants from '../../store/constants';
 import * as markerActions from '../../actions/markersActions';
 import * as usersActions from "../../actions/usersActions";
 import * as directionsActions from "../../actions/directionsActions";
+import * as authActions from "../../actions/authActions";
 import {Link} from "react-router-dom";
 
 class Map extends React.Component {
@@ -30,6 +31,7 @@ class Map extends React.Component {
 
     this.onMapClick = this.onMapClick.bind(this);
     this.filterMarkers = this.filterMarkers.bind(this);
+    this.onLogoutClick = this.onLogoutClick.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +43,10 @@ class Map extends React.Component {
   onMapClick() {
     this.props.actions.cleanRoutes();
     this.props.actions.hideAllInfoBoxes();
+  }
+
+  onLogoutClick() {
+    this.props.actions.logoutUser();
   }
 
   filterMarkers(event){
@@ -88,7 +94,9 @@ class Map extends React.Component {
         </GoogleMap>
         <div className="control-buttons">
           <Link to={`/profile`}>Profile</Link>
-          <Link to={`/logout`}>Logout</Link>
+          <button onClick={this.onLogoutClick}>
+            Logout
+          </button>
         </div>
       </div>
     );
@@ -103,6 +111,7 @@ Map.propTypes = {
   actions : PropTypes.shape({
     loadMarkers: PropTypes.func.isRequired,
     loadActiveUser: PropTypes.func.isRequired,
+    logoutUser: PropTypes.func.isRequired,
     loadUsers: PropTypes.func.isRequired,
     cleanRoutes: PropTypes.func.isRequired,
     addToMap: PropTypes.func.isRequired,
@@ -118,7 +127,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign({}, markerActions, directionsActions, usersActions), dispatch)
+    actions: bindActionCreators(Object.assign({}, markerActions, directionsActions, usersActions, authActions), dispatch)
   };
 }
 

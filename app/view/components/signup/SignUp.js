@@ -1,5 +1,8 @@
 import React from 'react';
 import * as authActions from '../../actions/authActions';
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 
 class SignUp extends React.Component {
 
@@ -20,15 +23,9 @@ class SignUp extends React.Component {
   }
 
   submitCreds(event) {
-    const user = {
-      username: this.state.username,
-      password: this.state.password,
-      firstname: this.state.firstname,
-      lastname: this.state.lastname,
-      phone: this.state.phone
-    };
+    const { username, password, firstname, lastname, phone } = this.state;
 
-    authActions.signupUser(user);
+    this.props.actions.signupUser({ username, password, firstname, lastname, phone });
     event.preventDefault();
   }
 
@@ -66,4 +63,20 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+SignUp.propTypes = {
+  actions : PropTypes.shape({
+    signupUser: PropTypes.func.isRequired
+  }),
+};
+
+function mapStateToProps(state, ownProps) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(Object.assign({}, authActions), dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
