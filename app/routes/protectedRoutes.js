@@ -7,6 +7,7 @@ import security from '../security';
 
 const protectedRouter = express.Router();
 
+protectedRouter.get('/logout', security.protectedAccess, security.auth.logout);
 protectedRouter.get('/profile', security.protectedAccess, (req, res) => (res.sendFile(path.join( __dirname, '../view/index.html'))));
 protectedRouter.get('/home', security.protectedAccess, (req, res) => (res.sendFile(path.join( __dirname, '../view/index.html'))));
 

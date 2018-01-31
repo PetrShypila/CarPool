@@ -25,7 +25,7 @@ class SignUp extends React.Component {
   submitCreds(event) {
     const { username, password, firstname, lastname, phone } = this.state;
 
-    this.props.actions.signupUser({ username, password, firstname, lastname, phone });
+    this.props.actions.signUpUser({ username, password, firstname, lastname, phone });
     event.preventDefault();
   }
 
@@ -65,7 +65,7 @@ class SignUp extends React.Component {
 
 SignUp.propTypes = {
   actions : PropTypes.shape({
-    signupUser: PropTypes.func.isRequired
+    signUpUser: PropTypes.func.isRequired
   }),
 };
 

@@ -6,7 +6,7 @@ const myFormat = winston.format.printf(info => {
 
 
 const logger = winston.createLogger({
-  level: 'info',
+  level: 'debug',
   format: myFormat,
   transports: [
     new winston.transports.Console()

@@ -2,7 +2,6 @@ import session from 'express-session';
 
 import sessionStore from './sessionstore';
 import auth from './auth';
-import logout from './logout';
 import publicAccess from './publicAccess';
 import protectedAccess from './protectedAccess';
 
@@ -16,7 +15,7 @@ function init(app) {
       path: '/',
       domain: 'localhost',
       httpOnly: false,
-      maxAge: new Date(2018, 1, 1).getTime(),
+      maxAge: new Date(2019, 1, 1).getTime(),
       secure: false,
     }
   }));
@@ -24,7 +23,6 @@ function init(app) {
 
 export default {
   init,
-  logout,
   publicAccess,
   protectedAccess,
   auth

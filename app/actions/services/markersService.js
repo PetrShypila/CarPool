@@ -26,10 +26,10 @@ function updateUserMarkers(req, res) {
         });
       });
     }
-  });
 
-  logger.info(`New markers: ${JSON.stringify(req.body)}`);
-  res.status(200).end();
+    logger.info(`New markers: ${JSON.stringify(req.body)}`);
+    res.status(200).end();
+  });
 }
 
 export default {

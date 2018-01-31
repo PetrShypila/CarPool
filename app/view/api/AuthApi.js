@@ -10,14 +10,7 @@ class AuthApi {
       },
       credentials: 'same-origin',
       body: JSON.stringify({username, password})
-    }).then(res => {
-        if(res.status === 200) {
-          window.location.replace(res.url);
-        }
-      })
-      .catch(err => {
-        throw(err);
-      });
+    });
   }
 
   static signupUser(user) {
@@ -30,13 +23,6 @@ class AuthApi {
       },
       credentials: 'same-origin',
       body: JSON.stringify(user)
-    }).then(res => {
-      if(res.status === 200) {
-        window.location.replace(res.url);
-      }
-    })
-    .catch(err => {
-      throw(err);
     });
   }
 
@@ -49,14 +35,7 @@ class AuthApi {
         'Content-Type': 'application/json'
       },
       credentials: 'same-origin'
-    }).then(res => {
-      if(res.status === 200) {
-        window.location.replace(res.url);
-      }
-    })
-      .catch(err => {
-        throw(err);
-      });
+    });
   }
 }
 

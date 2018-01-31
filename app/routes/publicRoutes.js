@@ -4,12 +4,11 @@ import security from '../security';
 
 const publicRouter = express.Router();
 
-publicRouter.get('/logout', security.logout);
 publicRouter.get('/', security.publicAccess, (req, res) => (res.sendFile(path.join( __dirname, '../view/index.html'))));
 publicRouter.get('/login', security.publicAccess, (req, res) => (res.sendFile(path.join( __dirname, '../view/index.html'))));
 publicRouter.get('/signup', security.publicAccess, (req, res) => (res.sendFile(path.join( __dirname, '../view/index.html'))));
 
-publicRouter.post('/login', security.auth.login, security.protectedAccess, (req, res) => (res.redirect('/home')));
-publicRouter.post('/signup', security.auth.signup, security.protectedAccess, (req, res) => (res.redirect('/login')));
+publicRouter.post('/login', security.publicAccess, security.auth.login);
+publicRouter.post('/signup', security.publicAccess, security.auth.signup);
 
 export default publicRouter;

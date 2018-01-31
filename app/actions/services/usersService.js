@@ -6,15 +6,17 @@ import User from '../models/users';
 
 axios.defaults.headers.common[config.auth.key] = config.auth.val;
 
-function signupUser(user) {
+function signUpUser(user) {
   return axios.post(config.auth.signupUrl, user);
 }
 
 function loginUser(username, password) {
-  return axios.post(config.auth.loginUrl, {
+  const xhr = axios.post(config.auth.loginUrl, {
     username,
     password
   });
+
+  return xhr;
 }
 
 function getAllUsers(req, res) {
@@ -30,14 +32,12 @@ function findByUsername(name) {
 function createUser(username) {
   const createdUser = new User({username});
 
-  createdUser.save()
-    .then(user => { logger.debug(`User ${JSON.stringify(user)} saved`); })
-    .catch(error => { logger.error(`User ${JSON.stringify(createdUser)} has not been saved. Error ${error}`); });
+  return createdUser.save();
 }
 
 export default {
   getAllUsers,
-  signupUser,
+  signUpUser,
   loginUser,
   createUser,
   findByUsername
