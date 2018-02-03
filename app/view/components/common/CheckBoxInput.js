@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CheckBoxInput = ({name, label, value, checked, onChange}) => (
-  <div className="field">
-    <input type={"checkbox"} name={name} value={value} checked={checked} onChange={onChange} />
-    <label htmlFor={name}>{label}</label>
+  <div className="field form-check">
+    <label htmlFor={name}><input type={"checkbox"} name={name} value={value} checked={checked} onChange={onChange} /> {label}</label>
   </div>
 );
 

@@ -86,15 +86,12 @@ class Map extends React.Component {
           onClick={this.onMapClick}
           options={{disableDefaultUI: true, zoomControl: true, zoomControlOptions: { style: google.maps.ZoomControlStyle.LARGE }}}
         >
-          {markers && activeUser && markers.map(m => {
-            m.type = m.username === activeUser.username ? Constants.TYPE_USER : m.type;
-            return <MarkerWrapper key={m._id} marker={m} />;
-          })}
+          {markers && activeUser && markers.map(m => (<MarkerWrapper key={m._id} marker={m} username={activeUser.username} />))}
           {directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={directions} />}
         </GoogleMap>
         <div className="control-buttons">
           <Link to={`/profile`}>Profile</Link>
-          <button onClick={this.onLogoutClick}>
+          <button type="button" className="btn btn-primary btn-sm" onClick={this.onLogoutClick}>
             Logout
           </button>
         </div>

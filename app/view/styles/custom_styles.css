@@ -1,0 +1,97 @@
+/* Styles */
+html, body {
+  min-height: 100%;
+  margin: 0;
+}
+
+#app {
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #4d4d4d;
+  min-height: 100%;
+  margin: 0;
+}
+
+#mapElement {
+  position: absolute;
+  min-height: 100%;
+  min-width: 100%
+}
+
+.filter-buttons {
+  margin: 10px;
+  padding: 5px;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+}
+
+.control-buttons {
+  z-index: 1;
+  position: inherit;
+  margin-left: auto;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: white;
+  padding: 5px 10px 5px 15px;
+}
+
+.user-info-box {
+  max-width: 240px;
+  display: inline-flex;
+}
+
+.user-pic {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.user-info {
+  margin-left:10px;
+}
+
+.btn {
+  margin: 10px 10px 10px 10px;
+}
+
+
+/* Bordered form */
+form {
+  border: 3px solid #f1f1f1;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+.login-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}
+
+/* The "Forgot password" text */
+span.psw {
+  float: right;
+  padding-top: 16px;
+}

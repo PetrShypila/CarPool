@@ -1,5 +1,5 @@
 'use strict';
-import './styles/styles.css';
+import './styles/custom_styles.css';
 import 'babel-polyfill';
 
 import React from 'react';

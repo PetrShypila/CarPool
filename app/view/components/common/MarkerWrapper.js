@@ -7,13 +7,13 @@ import * as directionsActions from '../../actions/directionsActions';
 
 import { Marker } from "react-google-maps";
 import UserInfoBox from './UserInfoBox';
-import * as constants from "../../store/constants";
+import * as Constants from "../../store/constants";
 
 const markerIcons = {
-  [constants.TYPE_COMPANY]: "http://maps.gstatic.com/mapfiles/ms2/micons/rangerstation.png",
-  [constants.TYPE_DRIVER]: "http://maps.gstatic.com/mapfiles/ms2/micons/cabs.png",
-  [constants.TYPE_PASSENGER]: "http://maps.gstatic.com/mapfiles/ms2/micons/man.png",
-  [constants.TYPE_USER]: "http://maps.gstatic.com/mapfiles/ms2/micons/homegardenbusiness.png",
+  [Constants.TYPE_COMPANY]: "http://maps.gstatic.com/mapfiles/ms2/micons/rangerstation.png",
+  [Constants.TYPE_DRIVER]: "http://maps.gstatic.com/mapfiles/ms2/micons/cabs.png",
+  [Constants.TYPE_PASSENGER]: "http://maps.gstatic.com/mapfiles/ms2/micons/man.png",
+  [Constants.TYPE_USER]: "http://maps.gstatic.com/mapfiles/ms2/micons/homegardenbusiness.png",
 };
 
 class MarkerWrapper extends React.Component {
@@ -24,6 +24,7 @@ class MarkerWrapper extends React.Component {
 
     this.markerClicked = this.markerClicked.bind(this);
     this.toggleInfoBox = this.toggleInfoBox.bind(this);
+    this.getMarkerIcon = this.getMarkerIcon.bind(this);
   }
 
   toggleInfoBox() {
@@ -45,11 +46,19 @@ class MarkerWrapper extends React.Component {
     this.buildRouteToHost();
   }
 
+  getMarkerIcon(marker, username) {
+    if(marker.username === username) {
+      return markerIcons[Constants.TYPE_USER];
+    } else {
+      return markerIcons[marker.type];
+    }
+  }
+
   render() {
     return <Marker key={this.props.marker._id}
                    position={this.props.marker.coordinates}
                    defaultIcon={{
-                     url: markerIcons[this.props.marker.type],
+                     url: this.getMarkerIcon(this.props.marker, this.props.username),
                      scaledSize: {height: 32, width: 32}
                    }}
                    visible={this.props.marker.visible}
@@ -62,6 +71,7 @@ class MarkerWrapper extends React.Component {
 
 MarkerWrapper.propTypes = {
   host: PropTypes.object.isRequired,
+  username: PropTypes.string.isRequired,
   marker: PropTypes.object.isRequired,
   actions: PropTypes.shape({
     showMarkerInfoBox: PropTypes.func.isRequired,
@@ -71,7 +81,7 @@ MarkerWrapper.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const host = state.markers.find(marker => marker.type === constants.TYPE_COMPANY ? marker : false);
+  const host = state.markers.find(marker => marker.type === Constants.TYPE_COMPANY ? marker : false);
 
   return {
     host: host

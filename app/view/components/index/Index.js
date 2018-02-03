@@ -3,8 +3,8 @@ import {Link} from "react-router-dom";
 
 const Index = () => (
   <div>
-    <Link to={`/login`}>Login</Link>
-    <Link to={`/signup`}>Sign Up</Link>
+    <Link className={`btn btn-info`} role={`button`} to={`/login`}>Login</Link>
+    <Link className={`btn btn-info`} role={`button`} to={`/signup`}>Sign Up</Link>
   </div>
 );
 

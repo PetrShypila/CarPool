@@ -5,11 +5,10 @@ export function loginUser(username, password) {
   return dispatch => (
     AuthApi.loginUser(username, password).then(res => {
       if(res.status === 200) {
-        dispatch(loginUserSuccess());
+        //dispatch(loginUserSuccess());
         window.location.replace(res.url);
       }
     }).catch(err => {
-      console.log(`Error on user login: ${err.message}`);
       throw(err);
     })
   );
@@ -23,11 +22,10 @@ export function signUpUser(user) {
   return dispatch => (
     AuthApi.signUpUser(user).then(res => {
       if(res.status === 200) {
-        dispatch(signUpUserSuccess());
+        //dispatch(signUpUserSuccess());
         window.location.replace(res.url);
       }
     }).catch(err => {
-      console.log(`Error on user signup: ${err.message}`);
       throw(err);
     })
   );
@@ -42,11 +40,10 @@ export function logoutUser() {
   return dispatch => (
     AuthApi.logoutUser().then(res => {
       if(res.status === 200) {
-        dispatch(logoutUserSuccess());
+        //dispatch(logoutUserSuccess());
         window.location.replace(res.url);
       }
     }).catch(err => {
-      console.log(`Error on user logout: ${err.message}`);
       throw(err);
     })
   );

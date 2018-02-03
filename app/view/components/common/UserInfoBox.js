@@ -15,18 +15,18 @@ class UserInfoBox extends React.Component {
   }
 
   buildInfoBox(user) {
-      const userFullName = `${user.firstName} ${user.lastName}`;
+    const userFullName = `${user.firstname} ${user.lastname}`;
 
-      return (
-        <div className="user-info-box">
-          <img src={this.props.user.pic} alt={userFullName} className="user-pic" />
-          <div className="user-info">
-            <div><b>{userFullName}</b></div>
-            <div><a href={`mailto:${user.username}`}>{`${user.username}`}</a></div>
-            <div>{`+${user.phone}`}</div>
-          </div>
+    return (
+      <div className="user-info-box">
+        <img src={this.props.user.pic} alt={userFullName} className="user-pic" />
+        <div className="user-info">
+          <div><b>{userFullName}</b></div>
+          <div><a href={`mailto:${user.username}`}>{`${user.username}`}</a></div>
+          <div>{`${user.phone}`}</div>
         </div>
-      );
+      </div>
+    );
   }
 
   render() {
@@ -44,7 +44,7 @@ class UserInfoBox extends React.Component {
 
 UserInfoBox.propTypes = {
   username : PropTypes.string.isRequired,
-  user : PropTypes.object.isRequired,
+  user : PropTypes.object,
   toggleInfoBox : PropTypes.func.isRequired
 };
 
