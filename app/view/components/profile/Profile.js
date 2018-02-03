@@ -25,6 +25,7 @@ class Profile extends React.Component {
 
     this.userDataChange = this.userDataChange.bind(this);
     this.userTypeChange = this.userTypeChange.bind(this);
+    this.userPhoneChange = this.userPhoneChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.updateMarker = this.updateMarker.bind(this);
     this.onLogoutClick = this.onLogoutClick.bind(this);
@@ -41,11 +42,17 @@ class Profile extends React.Component {
   }
 
   submitForm(event) {
-    this.props.actions.updateProfile({
-      user: this.state.activeUser,
-      types: this.state.activeTypes,
-      latLng: this.state.homeLoc
-    });
+    let profile = {
+      user: this.state.activeUser
+    };
+
+    if(this.state.showMarker) {
+      profile.types = this.state.activeTypes;
+      profile.latLng = this.state.homeLoc;
+
+    }
+
+    this.props.actions.updateProfile(profile);
 
     event.preventDefault();
   }
@@ -64,6 +71,12 @@ class Profile extends React.Component {
     this.setState({activeTypes});
   }
 
+  userPhoneChange(phone) {
+    const {activeUser} = this.state;
+    activeUser.phone = phone;
+    this.setState({activeUser});
+  }
+
   updateMarker(event) {
     const showMarker = true;
     const homeLoc = {lat: event.latLng.lat(), lng: event.latLng.lng() };
@@ -80,8 +93,9 @@ class Profile extends React.Component {
         <form onSubmit={this.submitForm}>
             <ProfileForm user={this.state.activeUser}
                          types={this.state.activeTypes}
-                         onChange={this.userDataChange}
+                         onNameChange={this.userDataChange}
                          onCheckBoxChange={this.userTypeChange}
+                         onPhoneChange={this.userPhoneChange}
             />
             <ProfileMap zoom={Constants.MAP_DEF_ZOOM}
                         homeLoc={this.state.homeLoc}

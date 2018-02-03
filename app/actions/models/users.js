@@ -6,7 +6,7 @@ const UserSchema = new db.Schema({
   username: {type: String, required: true},
   firstname: {type: String, default: ''},
   lastname: {type: String, default: ''},
-  phone: {type: Number},
+  phone: {type: String, default: ''},
   __v: { type: Number, select: false}
 });
 

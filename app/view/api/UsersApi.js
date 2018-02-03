@@ -9,8 +9,6 @@ class UsersApi {
       credentials: 'same-origin',
     }).then(response => {
         return response.json();
-    }).catch(err => {
-      throw(err);
     });
   }
 
@@ -23,8 +21,6 @@ class UsersApi {
       credentials: 'same-origin',
     }).then(response => {
       return response.json();
-    }).catch(err => {
-      throw(err);
     });
   }
 
@@ -40,8 +36,6 @@ class UsersApi {
       credentials: 'same-origin'
     }).then(response => {
       return response.json();
-    }).catch(err => {
-      throw(err);
     });
   }
 }

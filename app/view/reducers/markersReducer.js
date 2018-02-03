@@ -66,14 +66,18 @@ export default function markersReducer(state = initialState.markers, action){
     }
 
     case ACTIONS.PROFILE_UPDATE_SUCCESS: {
-      const {markers, user} = action;
-      markers.forEach(m => {m.username = user.username;});
+      if(action.user && action.markers) {
+        const {markers, user} = action;
+        markers.forEach(m => {m.username = user.username;});
 
-      const filteredMarkers = state.filter(marker => {
-        return marker.username !== user.username;
-      });
+        const filteredMarkers = state.filter(marker => {
+          return marker.username !== user.username;
+        });
 
-      return filteredMarkers.concat(markers);
+        return filteredMarkers.concat(markers);
+      } else {
+        return state;
+      }
     }
 
     default:
