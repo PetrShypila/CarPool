@@ -11,6 +11,7 @@ protectedRouter.get('/logout', security.protectedAccess, security.auth.logout);
 protectedRouter.get('/profile', security.protectedAccess, (req, res) => (res.sendFile(path.join( __dirname, '../view/index.html'))));
 protectedRouter.get('/home', security.protectedAccess, (req, res) => (res.sendFile(path.join( __dirname, '../view/index.html'))));
 
+protectedRouter.put('/api/v1/updateProfile', security.protectedAccess, UsersService.updateUser, MarkersService.updateUserMarkers);
 protectedRouter.get('/api/v1/activeUser', security.protectedAccess, (req, res) => (res.json(req.session.user)));
 protectedRouter.get('/api/v1/users', security.protectedAccess, UsersService.getAllUsers);
 

@@ -41,7 +41,12 @@ class Profile extends React.Component {
   }
 
   submitForm(event) {
-    this.props.actions.updateMarkersForUser(this.state.activeUser.username, this.state.activeTypes, this.state.homeLoc);
+    this.props.actions.updateProfile({
+      user: this.state.activeUser,
+      types: this.state.activeTypes,
+      latLng: this.state.homeLoc
+    });
+
     event.preventDefault();
   }
 
@@ -137,7 +142,7 @@ Profile.propTypes = {
     loadMarkers: PropTypes.func.isRequired,
     logoutUser: PropTypes.func.isRequired,
     loadActiveUser: PropTypes.func.isRequired,
-    updateMarkersForUser: PropTypes.func.isRequired
+    updateProfile: PropTypes.func.isRequired
   }),
 };
 

@@ -11,22 +11,44 @@ function signUpUser(user) {
 }
 
 function loginUser(username, password) {
-  const xhr = axios.post(config.auth.loginUrl, {
+
+  return axios.post(config.auth.loginUrl, {
     username,
     password
   });
-
-  return xhr;
 }
 
 function getAllUsers(req, res) {
   return User.find(Object.assign({}, req.query)).then(users => {
+    logger.debug(`UserService.getAllUsers retrieved users from DB: ${users}`);
     res.json(users);
   });
 }
 
 function findByUsername(name) {
   return User.findOne({username: name.toLowerCase()});
+}
+
+function updateUser(req, res, next) {
+  req.body.user.username = req.session.user.username;
+  delete req.body.user._id;
+  delete req.body.user.__v;
+
+  const query = {'username':req.body.user.username};
+
+  logger.info(`Saving user into datastore: ${JSON.stringify(req.body.user)}`);
+
+  User.findOneAndUpdate(query, req.body.user, {upsert:true, new:true}, function(err, doc){
+    if (err) {
+      logger.error(`Error saving user ${JSON.stringify(req.body.user)} into database. Error message ${err.message}`);
+      return res.status(500).send({ error: err.message });
+    } else {
+      logger.info(`Saved user body: ${JSON.stringify(doc)}`);
+      req.session.user = doc;
+      res.locals.user = doc;
+      return next();
+    }
+  });
 }
 
 function createUser(username) {
@@ -37,6 +59,7 @@ function createUser(username) {
 
 export default {
   getAllUsers,
+  updateUser,
   signUpUser,
   loginUser,
   createUser,

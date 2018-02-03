@@ -4,9 +4,10 @@ const {db} = config;
 
 const UserSchema = new db.Schema({
   username: {type: String, required: true},
-  firstName: {type: String},
-  lastName: {type: String},
-  phone: {type: Number}
+  firstname: {type: String, default: ''},
+  lastname: {type: String, default: ''},
+  phone: {type: Number},
+  __v: { type: Number, select: false}
 });
 
 export default db.model('user', UserSchema);

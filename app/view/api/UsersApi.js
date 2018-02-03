@@ -27,6 +27,23 @@ class UsersApi {
       throw(err);
     });
   }
+
+  static updateProfile(profile) {
+
+    return fetch('/api/v1/updateProfile', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(profile),
+      credentials: 'same-origin'
+    }).then(response => {
+      return response.json();
+    }).catch(err => {
+      throw(err);
+    });
+  }
 }
 
 export default UsersApi;

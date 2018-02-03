@@ -34,7 +34,7 @@ function login(req, res) {
 
         }).catch(error => {
           logger.error(`Error finding user ${req.body.username}. Error: ${error.message}`);
-          res.status(500).json({error: error.message});
+          res.status(500).end();
         });
 
         logger.info("Login finished!");
@@ -55,7 +55,7 @@ function login(req, res) {
     }
   }).catch(error => {
     logger.error(`Cannot login user ${req.body.username}. Error message: ${JSON.stringify(error.message)}`);
-    res.status(500).json({error: error.message});
+    res.status(500).end();
   });
 }
 
