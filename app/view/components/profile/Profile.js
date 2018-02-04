@@ -90,22 +90,24 @@ class Profile extends React.Component {
   render() {
     return (
       <div  style={{display: "flex"}}>
-        <div>
+
+        <div  className="filter-buttons">
           <form onSubmit={this.submitForm}>
-              <ProfileForm user={this.state.activeUser}
-                           types={this.state.activeTypes}
-                           onNameChange={this.userDataChange}
-                           onCheckBoxChange={this.userTypeChange}
-                           onPhoneChange={this.userPhoneChange}
-              />
-              <ProfileMap zoom={Constants.MAP_DEF_ZOOM}
-                          homeLoc={this.state.homeLoc}
-                          showMarker={this.state.showMarker}
-                          onMapClick={this.updateMarker}
-              />
+            <ProfileForm user={this.state.activeUser}
+                         types={this.state.activeTypes}
+                         onNameChange={this.userDataChange}
+                         onCheckBoxChange={this.userTypeChange}
+                         onPhoneChange={this.userPhoneChange}
+            />
             <input type="submit" className="btn btn-primary btn-sm" value="Save" />
           </form>
         </div>
+
+        <ProfileMap zoom={Constants.MAP_DEF_ZOOM}
+                    homeLoc={this.state.homeLoc}
+                    showMarker={this.state.showMarker}
+                    onMapClick={this.updateMarker}
+        />
         <div className="filter-buttons control-buttons">
           <Link to={`/home`}>Home</Link>
           <button onClick={this.onLogoutClick} className="btn btn-primary btn-sm">Logout</button>

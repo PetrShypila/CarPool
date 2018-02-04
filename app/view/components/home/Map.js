@@ -80,6 +80,7 @@ class Map extends React.Component {
                          onChange={this.filterMarkers}
           />
         </div>
+
         <GoogleMap
           defaultZoom= {Constants.MAP_DEF_ZOOM}
           defaultCenter={Constants.MAP_CENTER}
@@ -89,12 +90,14 @@ class Map extends React.Component {
           {markers && activeUser && markers.map(m => (<MarkerWrapper key={m._id} marker={m} username={activeUser.username} />))}
           {directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={directions} />}
         </GoogleMap>
+
         <div className="control-buttons">
           <Link to={`/profile`}>Profile</Link>
           <button type="button" className="btn btn-primary btn-sm" onClick={this.onLogoutClick}>
             Logout
           </button>
         </div>
+
       </div>
     );
   }
