@@ -55,7 +55,7 @@ class MarkerWrapper extends React.Component {
   }
 
   render() {
-    return <Marker key={this.props.marker._id}
+    return <Marker /*key={this.props.marker._id}*/
                    position={this.props.marker.coordinates}
                    defaultIcon={{
                      url: this.getMarkerIcon(this.props.marker, this.props.username),

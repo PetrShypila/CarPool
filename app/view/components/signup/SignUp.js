@@ -37,27 +37,19 @@ class SignUp extends React.Component {
   render() {
     return (
       <form onSubmit={this.submitCreds}>
-        <label>
-          Username:
+        <div className="container">
+          <label><b>Username:</b></label>
           <input type="text" name="username" value={this.state.username} onChange={this.updateValue} />
-        </label>
-        <label>
-          Password:
+          <label><b>Password:</b></label>
           <input type="password" name="password" value={this.state.password} onChange={this.updateValue} />
-        </label>
-        <label>
-          First Name:
+          <label><b>First Name:</b></label>
           <input type="text" name="firstname" value={this.state.firstname} onChange={this.updateValue} />
-        </label>
-        <label>
-          Last name:
+          <label><b>Last name:</b></label>
           <input type="text" name="lastname" value={this.state.lastname} onChange={this.updateValue} />
-        </label>
-        <label>
-          Phone Number:
+          <label><b>Phone Number:</b></label>
           <input type="text" name="phone" value={this.state.phone} onChange={this.updateValue} />
-        </label>
-        <input type="submit" value="Submit" />
+          <input type="submit" className="login-btn" value="Submit" />
+        </div>
       </form>
     );
   }
