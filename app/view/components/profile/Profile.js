@@ -91,7 +91,7 @@ class Profile extends React.Component {
     return (
       <div  style={{display: "flex"}}>
 
-        <div  className="filter-buttons">
+        <div  className="profile-form">
             <ProfileForm user={this.state.activeUser}
                          types={this.state.activeTypes}
                          onNameChange={this.userDataChange}

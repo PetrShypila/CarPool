@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const FilterInput = ({name, label, value, checked, onChange, imageUrl}) => (
   <div className="field">
-    <label htmlFor={name}><input type={"checkbox"} name={name} value={value} checked={checked} onChange={onChange} />  <img src={imageUrl} alt="Girl in a jacket" width="32" height="32"/> {label}</label>
+    <label htmlFor={name}><input type={"checkbox"} name={name} value={value} checked={checked} onChange={onChange} />  <img src={imageUrl} width="32" height="32"/> {label}</label>
   </div>
 );
 
