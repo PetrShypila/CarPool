@@ -10,10 +10,10 @@ import UserInfoBox from './UserInfoBox';
 import * as Constants from "../../store/constants";
 
 const markerIcons = {
-  [Constants.TYPE_COMPANY]: "http://maps.gstatic.com/mapfiles/ms2/micons/rangerstation.png",
-  [Constants.TYPE_DRIVER]: "http://maps.gstatic.com/mapfiles/ms2/micons/cabs.png",
-  [Constants.TYPE_PASSENGER]: "http://maps.gstatic.com/mapfiles/ms2/micons/man.png",
-  [Constants.TYPE_USER]: "http://maps.gstatic.com/mapfiles/ms2/micons/homegardenbusiness.png",
+  [Constants.TYPE_COMPANY]: Constants.ICON_COMPANY,
+  [Constants.TYPE_DRIVER]: Constants.ICON_DRIVER,
+  [Constants.TYPE_PASSENGER]: Constants.ICON_PASSENGER,
+  [Constants.TYPE_USER]: Constants.ICON_USER,
 };
 
 class MarkerWrapper extends React.Component {
@@ -25,6 +25,8 @@ class MarkerWrapper extends React.Component {
     this.markerClicked = this.markerClicked.bind(this);
     this.toggleInfoBox = this.toggleInfoBox.bind(this);
     this.getMarkerIcon = this.getMarkerIcon.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
   }
 
   toggleInfoBox() {
@@ -41,9 +43,16 @@ class MarkerWrapper extends React.Component {
   }
 
   markerClicked() {
+    this.buildRouteToHost();
+  }
+
+  onMouseOut() {
+    this.props.actions.hideAllInfoBoxes();
+  }
+
+  onMouseOver() {
     this.props.actions.hideAllInfoBoxes();
     this.toggleInfoBox();
-    this.buildRouteToHost();
   }
 
   getMarkerIcon(marker, username) {
@@ -59,10 +68,11 @@ class MarkerWrapper extends React.Component {
                    position={this.props.marker.coordinates}
                    defaultIcon={{
                      url: this.getMarkerIcon(this.props.marker, this.props.username),
-                     scaledSize: {height: 32, width: 32}
+                     scaledSize: {height: 48, width: 48}
                    }}
                    visible={this.props.marker.visible}
                    onClick={this.markerClicked}
+                   onMouseOver={this.onMouseOver}
     >
       { this.props.marker.infoBoxVisible && <UserInfoBox username={this.props.marker.username} toggleInfoBox={this.toggleInfoBox}/> }
     </Marker>;

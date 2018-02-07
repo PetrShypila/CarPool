@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from "prop-types";
 import {GoogleMap, Marker} from "react-google-maps";
 
+import * as Constants from '../../store/constants';
+
 const ProfileMap = ({zoom, homeLoc, showMarker, onMapClick}) => (
     <GoogleMap
       defaultZoom={zoom}
@@ -13,8 +15,8 @@ const ProfileMap = ({zoom, homeLoc, showMarker, onMapClick}) => (
           visible
           position={homeLoc}
           defaultIcon={{
-            url: "http://maps.gstatic.com/mapfiles/ms2/micons/homegardenbusiness.png",
-            scaledSize: {height: 32, width: 32}
+            url: Constants.ICON_USER,
+            scaledSize: {height: 48, width: 48}
           }}
         /> :
         null

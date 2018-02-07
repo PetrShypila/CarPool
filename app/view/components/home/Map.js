@@ -8,7 +8,7 @@ import {bindActionCreators} from 'redux';
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "react-google-maps";
 
 import MarkerWrapper from '../common/MarkerWrapper';
-import CheckBoxInput from '../common/CheckBoxInput';
+import FilterInput from '../common/FilterInput';
 import * as Constants from '../../store/constants';
 import * as markerActions from '../../actions/markersActions';
 import * as usersActions from "../../actions/usersActions";
@@ -67,17 +67,19 @@ class Map extends React.Component {
     return (
       <div style={{display: "flex"}}>
         <div className="filter-buttons">
-          <CheckBoxInput name={"types-filter"}
-                         label={"Passengers"}
-                         value={Constants.TYPE_PASSENGER}
-                         checked={this.state.types[Constants.TYPE_PASSENGER]}
-                         onChange={this.filterMarkers}
+          <FilterInput name={"types-filter"}
+                       label={"Show passengers"}
+                       value={Constants.TYPE_PASSENGER}
+                       checked={this.state.types[Constants.TYPE_PASSENGER]}
+                       onChange={this.filterMarkers}
+                       imageUrl={Constants.ICON_PASSENGER}
           />
-          <CheckBoxInput name={"types-filter"}
-                         label={"Drivers"}
-                         value={Constants.TYPE_DRIVER}
-                         checked={this.state.types[Constants.TYPE_DRIVER]}
-                         onChange={this.filterMarkers}
+          <FilterInput name={"types-filter"}
+                       label={"Show drivers"}
+                       value={Constants.TYPE_DRIVER}
+                       checked={this.state.types[Constants.TYPE_DRIVER]}
+                       onChange={this.filterMarkers}
+                       imageUrl={Constants.ICON_DRIVER}
           />
         </div>
 

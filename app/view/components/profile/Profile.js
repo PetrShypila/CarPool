@@ -92,15 +92,13 @@ class Profile extends React.Component {
       <div  style={{display: "flex"}}>
 
         <div  className="filter-buttons">
-          <form onSubmit={this.submitForm}>
             <ProfileForm user={this.state.activeUser}
                          types={this.state.activeTypes}
                          onNameChange={this.userDataChange}
                          onCheckBoxChange={this.userTypeChange}
                          onPhoneChange={this.userPhoneChange}
+                         onFormSubmit={this.submitForm}
             />
-            <input type="submit" className="btn btn-primary btn-sm" value="Save" />
-          </form>
         </div>
 
         <ProfileMap zoom={Constants.MAP_DEF_ZOOM}

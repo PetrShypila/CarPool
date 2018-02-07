@@ -11,7 +11,7 @@ const app = express();
 const compiler = webpack(config);
 
 app.use(bodyParser.json());
-app.use(express.static('static'));
+app.use(express.static('app/static'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(require('webpack-hot-middleware')(compiler));
 app.use(require('webpack-dev-middleware')(compiler, {

@@ -7,28 +7,38 @@ import * as Constants from '../../store/constants';
 import TextInput from "../common/TextInput";
 import CheckBoxInput from "../common/CheckBoxInput";
 
-const ProfileForm = ({user, types, onNameChange, onCheckBoxChange, onPhoneChange}) => {
+const ProfileForm = ({user, types, onNameChange, onCheckBoxChange, onPhoneChange, onFormSubmit}) => {
   return (
-    <div>
-      <TextInput name={'firstname'}
-                 label={'First name: '}
-                 value={user.firstname}
-                 onChange={onNameChange}/>
-      <TextInput name={'lastname'}
-                 label={'Last name: '}
-                 value={user.lastname}
-                 onChange={onNameChange}/>
-      <Phone
-        country="PL"
-        placeholder="Phone number"
-        value={user.phone}
-        onChange={onPhoneChange}/>
+    <form onSubmit={onFormSubmit} style={{border: "none", margin: "10px"}}>
       <div>
-        As who you want to be presented on a map:
-        <CheckBoxInput name={"type"} label={"Driver"} value={Constants.TYPE_DRIVER} checked={!!types.driver} onChange={onCheckBoxChange}/>
-        <CheckBoxInput name={"type"} label={"Passenger"} value={Constants.TYPE_PASSENGER} checked={!!types.passenger} onChange={onCheckBoxChange}/>
+        <TextInput name={'firstname'}
+                   label={'First name: '}
+                   value={user.firstname}
+                   onChange={onNameChange}/>
+        <TextInput name={'lastname'}
+                   label={'Last name: '}
+                   value={user.lastname}
+                   onChange={onNameChange}/>
+        <Phone
+          country="PL"
+          placeholder="Phone number"
+          value={user.phone}
+          onChange={onPhoneChange}/>
+        <div>
+          <br/>
+          As who you want to be presented on a map:
+          <br/>
+          <br/>
+          <div>
+            <CheckBoxInput name={"type"} label={"Driver"} value={Constants.TYPE_DRIVER} checked={!!types.driver} onChange={onCheckBoxChange}/>
+            <CheckBoxInput name={"type"} label={"Passenger"} value={Constants.TYPE_PASSENGER} checked={!!types.passenger} onChange={onCheckBoxChange}/>
+          </div>
+          <br/>
+          {}
+        </div>
       </div>
-    </div>
+      <input type="submit" className="btn-primary btn-sm" value="Save" />
+    </form>
   );
 };
 
@@ -41,6 +51,7 @@ ProfileForm.propTypes = {
   types : PropTypes.object.isRequired,
   onNameChange : PropTypes.func.isRequired,
   onPhoneChange : PropTypes.func.isRequired,
+  onFormSubmit : PropTypes.func.isRequired,
   onCheckBoxChange: PropTypes.func.isRequired
 };
 
