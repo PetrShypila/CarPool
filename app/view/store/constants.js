@@ -6,7 +6,7 @@ export const TYPE_USER = 'user';
 export const TYPE_PASSENGER = 'passenger';
 export const TYPE_COMPANY = 'company';
 
-export const ICON_DRIVER = 'http://localhost:3000/icons/driver.svg';
-export const ICON_USER = 'http://localhost:3000/icons/user.svg';
-export const ICON_PASSENGER = 'http://localhost:3000/icons/passenger.svg';
-export const ICON_COMPANY = 'http://localhost:3000/icons/host.svg';
+export const ICON_DRIVER = 'https://cpoolr.herokuapp.com/icons/driver.svg';
+export const ICON_USER = 'https://cpoolr.herokuapp.com/icons/user.svg';
+export const ICON_PASSENGER = 'https://cpoolr.herokuapp.com/icons/passenger.svg';
+export const ICON_COMPANY = 'https://cpoolr.herokuapp.com/icons/host.svg';

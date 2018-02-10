@@ -13,7 +13,7 @@ function init(app) {
     saveUninitialized: false,
     cookie: {
       path: '/',
-      domain: 'localhost',
+      domain: 'cpoolr.herokuapp.com',
       httpOnly: false,
       maxAge: new Date(2019, 1, 1).getTime(),
       secure: false,
