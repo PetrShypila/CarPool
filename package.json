@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Enterprise car pooling solution",
   "scripts": {
-    "start": "SECRET=djwa0djwja0d9w0djwadhuwia9 DEBUG=express-session npm-run-all --parallel open:src lint:watch",
+    "start": "SECRET=djwa0djwja0d9w0djwadhuwia9 babel-node index.js",
     "open:src": "babel-node --inspect index",
     "lint": "node_modules/.bin/esw webpack.config.* app",
     "lint:watch": "npm run lint -- --watch"
