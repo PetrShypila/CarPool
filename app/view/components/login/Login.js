@@ -19,12 +19,14 @@ class Login extends React.Component {
   }
 
   submitCreds(event) {
-    this.props.actions.loginUser(this.state.username, this.state.password);
     event.preventDefault();
+    this.props.actions.loginUser(this.state.username, this.state.password).then(res => {
+      this.setState({loginStatus: res.status});
+    });
   }
 
   updateValue(event) {
-    this.setState({[event.target.name]: event.target.value});
+    this.setState({[event.target.name]: event.target.value, loginStatus: 0});
     event.preventDefault();
   }
 
@@ -37,7 +39,7 @@ class Login extends React.Component {
 
           <label><b>Password</b></label>
           <input type="password" placeholder="Enter Password" name="password" value={this.state.password} onChange={this.updateValue} required />
-
+          {this.state.loginStatus >= 400 && this.state.loginStatus < 500 && <p style={{color: "red"}}>You provided incorrect credentials</p>}
           <button type="submit" className="login-btn">Login</button>
         </div>
       </form>

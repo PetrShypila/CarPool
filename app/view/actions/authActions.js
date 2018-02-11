@@ -2,14 +2,13 @@ import * as ACTIONS from "./actionTypes";
 import AuthApi from '../api/AuthApi';
 
 export function loginUser(username, password) {
-  return dispatch => (
+  return () => (
     AuthApi.loginUser(username, password).then(res => {
       if(res.status === 200) {
-        //dispatch(loginUserSuccess());
         window.location.replace(res.url);
       }
-    }).catch(err => {
-      throw(err);
+
+      return res;
     })
   );
 }
@@ -19,14 +18,11 @@ function loginUserSuccess() {
 }
 
 export function signUpUser(user) {
-  return dispatch => (
+  return () => (
     AuthApi.signUpUser(user).then(res => {
       if(res.status === 200) {
-        //dispatch(signUpUserSuccess());
         window.location.replace(res.url);
       }
-    }).catch(err => {
-      throw(err);
     })
   );
 }

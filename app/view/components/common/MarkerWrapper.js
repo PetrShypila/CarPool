@@ -30,7 +30,7 @@ class MarkerWrapper extends React.Component {
 
     this.state = {
       markerClicked: false
-    }
+    };
   }
 
   toggleInfoBox() {

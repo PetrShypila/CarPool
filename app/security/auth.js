@@ -4,58 +4,55 @@ import logger from '../logging';
 
 function login(req, res) {
   logger.debug(`Logging user ${req.body.username}`);
-  const loginPromise = UserService.loginUser(req.body.username, req.body.password);
-  loginPromise.then(response => {
-    switch(response.status) {
-      case 200:
-        logger.debug(`User ${req.body.username} successfully logged in. Saving into session store`);
+  UserService.loginUser(req.body.username, req.body.password).then(response => {
 
-        UserService.findByUsername(response.data.username).then(user => {
+    logger.debug(`User ${req.body.username} successfully logged in. Saving into session store`);
 
-          const firstLogin = user == null;
-          const redirectUrl = firstLogin ? '/profile' : '/home';
+    UserService.findByUsername(response.data.username).then(user => {
 
-          if(firstLogin) {
+      const firstLogin = user == null;
+      const redirectUrl = firstLogin ? '/profile' : '/home';
 
-            logger.debug(`First user ${JSON.stringify(req.body.username)} login. Creating new profile and redirecting to ${redirectUrl}`);
+      if(firstLogin) {
 
-            UserService.createUser(response.data.username).then(createdUser => {
-              logger.debug(`User created: ${JSON.stringify(createdUser)}`);
-              saveUserIntoSession(req, res, redirectUrl, createdUser);
-            }).catch(err => {
-              logger.error(`Error saving user ${response.data.username} into database. Error: ${err.message}`);
-              res.status(500).end();
-            });
+        logger.debug(`First user ${JSON.stringify(req.body.username)} login. Creating new profile and redirecting to ${redirectUrl}`);
 
-          } else {
-            logger.debug(`User ${JSON.stringify(user)} logging in with already created profile. Redirecting to ${redirectUrl}`);
-            saveUserIntoSession(req, res, redirectUrl, user);
-          }
-
-        }).catch(error => {
-          logger.error(`Error finding user ${req.body.username}. Error: ${error.message}`);
+        UserService.createUser(response.data.username).then(createdUser => {
+          logger.debug(`User created: ${JSON.stringify(createdUser)}`);
+          saveUserIntoSession(req, res, redirectUrl, createdUser);
+        }).catch(err => {
+          logger.error(`Error saving user ${response.data.username} into database. Error: ${err.message}`);
           res.status(500).end();
         });
 
-        logger.info("Login finished!");
-        return;
+      } else {
+        logger.debug(`User ${JSON.stringify(user)} logging in with already created profile. Redirecting to ${redirectUrl}`);
+        saveUserIntoSession(req, res, redirectUrl, user);
+      }
+
+    }).catch(error => {
+      logger.error(`Error finding user ${req.body.username}. Error: ${error.message}`);
+      res.status(500).end();
+    });
+
+    logger.info("Login finished!");
+
+  }).catch(error => {
+    debugger;
+    switch(error.response.status) {
       case 401:
-        logger.warn(`User ${response.data.username} provided incorrect credentials`);
-        res.status(response.status).end();
+        logger.warn(`User ${req.body.username} provided incorrect credentials`);
+        res.status(error.response.status).end();
         return;
       case 404:
       case 500:
         logger.error(`Error receiving data from auth server for user ${req.body.username}`);
-        res.status(response.status).end();
+        res.status(error.response.status).end();
         return;
       default:
         logger.error(`Unexpected response from auth server for user ${req.body.username}`);
-        res.status(response.status).send({error: "Unexpected error."});
-        return;
+        res.status(error.response.status).send({error: "Unexpected error."});
     }
-  }).catch(error => {
-    logger.error(`Cannot login user ${req.body.username}. Error message: ${JSON.stringify(error.message)}`);
-    res.status(500).end();
   });
 }
 
