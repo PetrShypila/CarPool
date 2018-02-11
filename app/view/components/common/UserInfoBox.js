@@ -12,29 +12,40 @@ class UserInfoBox extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      imageLoaded: false
+    };
+
+    this.onImageLoaded = this.onImageLoaded.bind(this);
   }
 
-  buildInfoBox(user) {
-    const userFullName = `${user.firstname} ${user.lastname}`;
-
-    return (
-      <div className="user-info-box">
-        <img src={this.props.user.pic} alt={userFullName} className="user-pic" />
-        <div className="user-info">
-          <div><b>{userFullName}</b></div>
-          <div><a href={`mailto:${user.username}`}>{`${user.username}`}</a></div>
-          <div>{`${user.phone}`}</div>
-        </div>
-      </div>
-    );
+  onImageLoaded() {
+    this.setState({imageLoaded: true});
   }
 
   render() {
+    const userFullName = `${this.props.user.firstname} ${this.props.user.lastname}`;
+
     return (
       <InfoWindow onCloseClick={this.props.toggleInfoBox} >
         {
           this.props.user ?
-          this.buildInfoBox(this.props.user) :
+          (
+            <div className="user-info-box">
+              <img src={this.props.user.pic}
+                   alt={userFullName}
+                   className="user-pic"
+                   onLoad={this.onImageLoaded}
+                   style={{visibility: this.state.imageLoaded ? 'visible' : 'hidden' }}
+              />
+              <div className="user-info">
+                <div><b>{userFullName}</b></div>
+                <div><a href={`mailto:${this.props.user.username}`}>{`${this.props.user.username}`}</a></div>
+                <div>{`${this.props.user.phone}`}</div>
+              </div>
+            </div>
+          ) :
           <div>{this.props.username}</div>
         }
       </InfoWindow>
