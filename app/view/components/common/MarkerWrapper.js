@@ -27,6 +27,10 @@ class MarkerWrapper extends React.Component {
     this.getMarkerIcon = this.getMarkerIcon.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
+
+    this.state = {
+      markerClicked: false
+    }
   }
 
   toggleInfoBox() {
@@ -44,14 +48,16 @@ class MarkerWrapper extends React.Component {
 
   markerClicked() {
     this.buildRouteToHost();
+    this.setState({markerClicked: true});
   }
 
   onMouseOut() {
-    this.props.actions.hideAllInfoBoxes();
+    if(! this.state.markerClicked) {
+      this.props.actions.hideAllInfoBoxes();
+    }
   }
 
   onMouseOver() {
-    this.props.actions.hideAllInfoBoxes();
     this.toggleInfoBox();
   }
 
@@ -64,8 +70,7 @@ class MarkerWrapper extends React.Component {
   }
 
   render() {
-    return <Marker /*key={this.props.marker._id}*/
-                   position={this.props.marker.coordinates}
+    return <Marker position={this.props.marker.coordinates}
                    defaultIcon={{
                      url: this.getMarkerIcon(this.props.marker, this.props.username),
                      scaledSize: {height: 48, width: 48}
@@ -73,6 +78,7 @@ class MarkerWrapper extends React.Component {
                    visible={this.props.marker.visible}
                    onClick={this.markerClicked}
                    onMouseOver={this.onMouseOver}
+                   onMouseOut={this.onMouseOut}
     >
       { this.props.marker.infoBoxVisible && <UserInfoBox username={this.props.marker.username} toggleInfoBox={this.toggleInfoBox}/> }
     </Marker>;
