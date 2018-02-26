@@ -7,9 +7,10 @@ import * as Constants from '../../store/constants';
 import TextInput from "../common/TextInput";
 import CheckBoxInput from "../common/CheckBoxInput";
 
-const ProfileForm = ({user, types, onNameChange, onCheckBoxChange, onPhoneChange, onFormSubmit}) => {
+const ProfileForm = ({user, types, onNameChange, onCheckBoxChange, onPhoneChange, onFormSubmit, markerSet, profileSaved, profileSaveError}) => {
+
   return (
-    <form onSubmit={onFormSubmit} style={{border: "none", margin: "10px"}}>
+    <form onSubmit={markerSet ? onFormSubmit : (e) => {e.preventDefault();}} style={{border: "none", margin: "10px"}}>
       <div>
         <TextInput name={'firstname'}
                    label={'First name: '}
@@ -34,10 +35,12 @@ const ProfileForm = ({user, types, onNameChange, onCheckBoxChange, onPhoneChange
             <CheckBoxInput name={"type"} label={"Passenger"} value={Constants.TYPE_PASSENGER} checked={!!types.passenger} onChange={onCheckBoxChange}/>
           </div>
           <br/>
-          {}
+          {!markerSet && <p style={{color: "red"}}>Choose on a map by left click where is you home.</p>}
+          {profileSaved && <p style={{color: "blue"}}>Saved!</p>}
+          {profileSaveError && <p style={{color: "blue"}}>Something went wrong. Your data was not saved. Please, try again.</p>}
         </div>
       </div>
-      <input type="submit" className="btn-primary btn-sm" value="Save" />
+      <input type="submit" className={`btn-sm btn-primary ${markerSet ? '' : 'disabled'}`} value="Save" disabled={!markerSet} />
     </form>
   );
 };
@@ -49,6 +52,9 @@ ProfileForm.propTypes = {
     phone: PropTypes.string.isRequired,
   }),
   types : PropTypes.object.isRequired,
+  markerSet : PropTypes.bool.isRequired,
+  profileSaved : PropTypes.bool.isRequired,
+  profileSaveError : PropTypes.bool.isRequired,
   onNameChange : PropTypes.func.isRequired,
   onPhoneChange : PropTypes.func.isRequired,
   onFormSubmit : PropTypes.func.isRequired,

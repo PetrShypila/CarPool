@@ -32,8 +32,7 @@ export function updateProfile(profile) {
 
     return UsersApi.updateProfile(profile).then(profile => {
       dispatch(profileUpdateSuccess(profile));
-    }).catch(error => {
-      throw(error);
+      return true;
     });
 
   };

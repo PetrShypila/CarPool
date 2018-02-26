@@ -23,6 +23,7 @@ html, body {
   background-color: white;
   position: absolute;
   z-index: 1;
+  max-width: 310px;
 }
 
 .left-panel {
@@ -113,3 +114,23 @@ span.psw {
   float: right;
   padding-top: 16px;
 }
+
+.btn-auth {
+  display: block;
+}
+
+.background {
+  min-width: 100%;
+  min-height: 100%;
+  background: url(/img/background.jpg) no-repeat;
+  background-size: cover;
+  position: absolute;
+}
+
+.auth-block {
+  position: relative;
+  margin: auto;
+  width: 30%;
+  padding: 20% 0;
+}
+

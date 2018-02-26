@@ -20,7 +20,7 @@ class Profile extends React.Component {
     const {homeLoc, showMarker, activeTypes, activeUser} = props;
 
     this.state = {
-      homeLoc, showMarker, activeTypes, activeUser
+      homeLoc, showMarker, activeTypes, activeUser, profileSaved: false, profileSaveError: false,
     };
 
     this.userDataChange = this.userDataChange.bind(this);
@@ -42,6 +42,8 @@ class Profile extends React.Component {
   }
 
   submitForm(event) {
+    this.setState({profileSaved: false, profileSaveError: false});
+
     let profile = {
       user: this.state.activeUser
     };
@@ -52,7 +54,11 @@ class Profile extends React.Component {
 
     }
 
-    this.props.actions.updateProfile(profile);
+    this.props.actions.updateProfile(profile).then(() => {
+      this.setState({profileSaved: true});
+    }).catch(() => {
+      this.setState({profileSaveError: true});
+    });
 
     event.preventDefault();
   }
@@ -61,26 +67,26 @@ class Profile extends React.Component {
     event.preventDefault();
     const {activeUser} = this.state;
     activeUser[event.target.name] = event.target.value;
-    this.setState({activeUser});
+    this.setState({profileSaved: false, profileSaveError: false, activeUser});
   }
 
   userTypeChange(event) {
     const {activeTypes} = this.state;
     activeTypes[event.target.value] = event.target.checked;
 
-    this.setState({activeTypes});
+    this.setState({profileSaved: false, profileSaveError: false, activeTypes});
   }
 
   userPhoneChange(phone) {
     const {activeUser} = this.state;
     activeUser.phone = phone;
-    this.setState({activeUser});
+    this.setState({profileSaved: false, profileSaveError: false, activeUser});
   }
 
   updateMarker(event) {
     const showMarker = true;
     const homeLoc = {lat: event.latLng.lat(), lng: event.latLng.lng() };
-    this.setState({homeLoc, showMarker});
+    this.setState({profileSaved: false, profileSaveError: false, homeLoc, showMarker});
   }
 
   onLogoutClick(){
@@ -98,6 +104,9 @@ class Profile extends React.Component {
                          onCheckBoxChange={this.userTypeChange}
                          onPhoneChange={this.userPhoneChange}
                          onFormSubmit={this.submitForm}
+                         markerSet={this.state.showMarker}
+                         profileSaved={this.state.profileSaved}
+                         profileSaveError={this.state.profileSaveError}
             />
         </div>
 
