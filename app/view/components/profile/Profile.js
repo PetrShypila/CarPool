@@ -112,6 +112,7 @@ class Profile extends React.Component {
 
         <ProfileMap zoom={Constants.MAP_DEF_ZOOM}
                     homeLoc={this.state.homeLoc}
+                    officeMarker={this.props.officeMarker}
                     showMarker={this.state.showMarker}
                     onMapClick={this.updateMarker}
         />
@@ -127,6 +128,7 @@ class Profile extends React.Component {
 function mapStateToProps(state, ownProps) {
   const containerState = {
     homeLoc: Constants.MAP_CENTER,
+    officeMarker: null,
     showMarker: false,
     activeTypes: {},
     activeUser: {firstname: '', lastname: '', phone: ''}
@@ -140,6 +142,10 @@ function mapStateToProps(state, ownProps) {
         containerState.activeTypes[m.type] = true;
         containerState.homeLoc = m.coordinates;
         containerState.showMarker = true;
+      }
+
+      if(m.type === Constants.TYPE_COMPANY) {
+        containerState.officeMarker = m.coordinates;
       }
 
       return Object.values(containerState.activeTypes).length === 2;
@@ -160,6 +166,7 @@ Profile.propTypes = {
   showMarker : PropTypes.bool.isRequired,
   activeUser : PropTypes.object.isRequired,
   activeTypes : PropTypes.object.isRequired,
+  officeMarker : PropTypes.object,
 
   actions : PropTypes.shape({
     loadMarkers: PropTypes.func.isRequired,

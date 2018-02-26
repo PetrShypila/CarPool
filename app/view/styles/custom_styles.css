@@ -1,7 +1,7 @@
 /* Styles */
 html, body {
   min-height: 100%;
-  margin: 0;
+  margin: -5px 0px 0px 0px;
 }
 
 #app {
@@ -30,6 +30,7 @@ html, body {
   margin: 0;
   background-color: white;
   position: absolute;
+  padding: 10px 0px 10px 10px;
   z-index: 1;
   min-height: 100%;
 }
@@ -46,17 +47,18 @@ html, body {
 
 .control-buttons {
   z-index: 1;
-  position: inherit;
+  position: relative;
   margin-left: auto;
-  margin-top: 10px;
-  margin-right: 10px;
+  margin-top: 30px;
+  margin-right: 20px;
   background-color: white;
   padding: 5px 10px 5px 15px;
+  float: right;
 }
 
 .user-info-box {
-  max-width: 240px;
   display: inline-flex;
+  padding-right: 10px;
 }
 
 .user-pic {
@@ -134,3 +136,6 @@ span.psw {
   padding: 20% 0;
 }
 
+.btn-request {
+  margin-left: 0;
+}

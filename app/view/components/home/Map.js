@@ -65,7 +65,7 @@ class Map extends React.Component {
     const {markers, directions, activeUser} = this.props;
 
     return (
-      <div style={{display: "flex"}}>
+      <div>
         <div className="left-panel">
           <div className="filters">
             <FilterInput name={"types-filter"}
@@ -82,6 +82,9 @@ class Map extends React.Component {
                          onChange={this.filterMarkers}
                          imageUrl={Constants.ICON_DRIVER}
             />
+          </div>
+          <div className={`inbox`}>
+            Here is your inbox
           </div>
           <div className="info">
             <span><b>Info section:</b></span>
@@ -110,7 +113,6 @@ class Map extends React.Component {
             Logout
           </button>
         </div>
-
       </div>
     );
   }
