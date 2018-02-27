@@ -4,10 +4,11 @@
   "description": "Enterprise car pooling solution",
   "scripts": {
     "start": "SECRET=djwa0djwja0d9w0djwadhuwia9 babel-node index.js",
-    "dev": "DEV=true SECRET=djwa0djwja0d9w0djwadhuwia9 DEBUG=express-session npm-run-all --parallel open:src lint:watch",
+    "dev": "DEV=true SECRET=djwa0djwja0d9w0djwadhuwia9 DEBUG=express-session npm-run-all --parallel db open:src lint:watch",
     "open:src": "babel-node --inspect index",
     "lint": "node_modules/.bin/esw webpack.config.* app",
-    "lint:watch": "npm run lint -- --watch"
+    "lint:watch": "npm run lint -- --watch",
+    "db": "smongo.sh"
   },
   "author": "Petr Shypila",
   "license": "Propietary",

@@ -18,7 +18,9 @@ const ProfileMap = ({zoom, homeLoc, showMarker, onMapClick, officeMarker}) => (
                               url: Constants.ICON_COMPANY,
                               scaledSize: {height: 48, width: 48}
                             }} >
-        <UserInfoBox username={`Your office is here!`} toggleInfoBox={() => {}}/>
+        <UserInfoBox showButton={false}
+                     marker={{username: `Your office is here!`}}
+                     toggleInfoBox={() => {}}/>
       </Marker> }
 
       { showMarker && <Marker

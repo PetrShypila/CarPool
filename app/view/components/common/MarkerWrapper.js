@@ -80,7 +80,10 @@ class MarkerWrapper extends React.Component {
                    onMouseOver={this.onMouseOver}
                    onMouseOut={this.onMouseOut}
     >
-      { this.props.marker.infoBoxVisible && <UserInfoBox marker={this.props.marker} toggleInfoBox={this.toggleInfoBox}/> }
+      { this.props.marker.infoBoxVisible && <UserInfoBox
+                                                    marker={this.props.marker}
+                                                    showButton={this.props.username !== this.props.marker.username}
+                                                    toggleInfoBox={this.toggleInfoBox}/> }
     </Marker>;
   }
 }

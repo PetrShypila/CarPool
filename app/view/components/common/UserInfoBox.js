@@ -26,7 +26,7 @@ class UserInfoBox extends React.Component {
   }
 
   render() {
-    let infoBox;
+    let infoBox = null;
     if(this.props.user) {
       const userFullName = `${this.props.user.firstname} ${this.props.user.lastname}`;
       infoBox = (
@@ -41,9 +41,12 @@ class UserInfoBox extends React.Component {
             <div><b>{userFullName}</b></div>
             <div><a href={`mailto:${this.props.user.username}`}>{`${this.props.user.username}`}</a></div>
             <div>{`${this.props.user.phone}`}</div>
-            <button type="button" className="btn btn-primary btn-sm btn-request">
-              {`Suggest to be my ${this.props.marker.type === Constants.TYPE_PASSENGER ? 'passenger' : 'driver'}`}
-            </button>
+            {
+              this.props.showButton &&
+              <button type="button" className="btn btn-primary btn-sm btn-request">
+                {`Suggest to be my ${this.props.marker.type === Constants.TYPE_PASSENGER ? 'passenger' : 'driver'}`}
+              </button>
+            }
           </div>
         </div>
       );
@@ -63,11 +66,13 @@ class UserInfoBox extends React.Component {
 
 UserInfoBox.propTypes = {
   marker : PropTypes.object.isRequired,
+  showButton : PropTypes.bool.isRequired,
   user : PropTypes.object,
   toggleInfoBox : PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
+  debugger;
   return {
     user: getUserByUsername(state.users, ownProps.marker.username)
   };

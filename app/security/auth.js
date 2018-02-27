@@ -38,7 +38,7 @@ function login(req, res) {
     logger.info("Login finished!");
 
   }).catch(error => {
-    debugger;
+
     switch(error.response.status) {
       case 401:
         logger.warn(`User ${req.body.username} provided incorrect credentials`);
