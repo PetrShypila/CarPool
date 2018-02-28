@@ -1,4 +1,4 @@
-import  UserService from '../actions/services/usersService';
+import  UserService from '../actions/services/userService';
 
 import logger from '../logging';
 

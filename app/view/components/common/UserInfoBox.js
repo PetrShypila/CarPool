@@ -8,6 +8,7 @@ import {bindActionCreators} from 'redux';
 import { InfoWindow } from "react-google-maps";
 import * as usersActions from '../../actions/usersActions';
 import * as Constants from "../../store/constants";
+import ConnectionsApi from '../../api/ConnectionsApi';
 
 class UserInfoBox extends React.Component {
 
@@ -19,10 +20,16 @@ class UserInfoBox extends React.Component {
     };
 
     this.onImageLoaded = this.onImageLoaded.bind(this);
+    this.sendConnectionRequest = this.sendConnectionRequest.bind(this);
   }
 
   onImageLoaded() {
     this.setState({imageLoaded: true});
+  }
+
+  sendConnectionRequest(event){
+    debugger;
+    ConnectionsApi.createNewConnection(this.props.user.username, this.props.marker.type);
   }
 
   render() {
@@ -43,7 +50,7 @@ class UserInfoBox extends React.Component {
             <div>{`${this.props.user.phone}`}</div>
             {
               this.props.showButton &&
-              <button type="button" className="btn btn-primary btn-sm btn-request">
+              <button type="button" className="btn btn-primary btn-sm btn-request" onClick={this.sendConnectionRequest}>
                 {`Suggest to be my ${this.props.marker.type === Constants.TYPE_PASSENGER ? 'passenger' : 'driver'}`}
               </button>
             }
@@ -72,7 +79,6 @@ UserInfoBox.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  debugger;
   return {
     user: getUserByUsername(state.users, ownProps.marker.username)
   };

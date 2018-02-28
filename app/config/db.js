@@ -8,7 +8,7 @@ mongoose.connect(mongoUrl, { useMongoClient: true });
 mongoose.Promise = global.Promise;
 
 let db = mongoose.connection;
-db.once('error', (error) => { logger.error(`Database connection error:${error.message}`); });
-db.once('open', () => { logger.info("Successfully connected to DB!"); });
+db.once('error', (error) => { logger.error(`Database ${mongoUrl} connection error:${error.message}`); });
+db.once('open', () => { logger.info(`Successfully connected to DB: ${mongoUrl}`); });
 
 export default mongoose;
