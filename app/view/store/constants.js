@@ -10,3 +10,8 @@ export const ICON_DRIVER = 'https://cpoolr.herokuapp.com/icons/driver.svg';
 export const ICON_USER = 'https://cpoolr.herokuapp.com/icons/user.svg';
 export const ICON_PASSENGER = 'https://cpoolr.herokuapp.com/icons/passenger.svg';
 export const ICON_COMPANY = 'https://cpoolr.herokuapp.com/icons/host.svg';
+
+export const CONNECTION_STATUS_NEW = 'new';
+export const CONNECTION_STATUS_ACTIVE = 'active';
+export const CONNECTION_STATUS_CANCELLED = 'cancelled';
+export const CONNECTION_STATUS_STOPPED = 'stopped';

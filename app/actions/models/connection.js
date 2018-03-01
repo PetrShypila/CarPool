@@ -9,7 +9,7 @@ const ConnectionSchema = new db.Schema({
   datetime_updated: {type: Date, required: false},
 
   service: {type: String, required: true},
-  state: {type: String, required: true},
+  status: {type: String, required: true},
 
   __v: { type: Number, select: false}
 });

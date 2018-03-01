@@ -6,7 +6,7 @@ import * as markerActions from '../../actions/markersActions';
 import * as directionsActions from '../../actions/directionsActions';
 
 import { Marker } from "react-google-maps";
-import UserInfoBox from './UserInfoBox';
+import UserInfoBox from '../home/UserInfoBox';
 import * as Constants from "../../store/constants";
 
 const markerIcons = {

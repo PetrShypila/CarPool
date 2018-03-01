@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {GoogleMap, Marker} from "react-google-maps";
 
 import * as Constants from '../../store/constants';
-import UserInfoBox from "../common/UserInfoBox";
+import UserInfoBox from "../home/UserInfoBox";
 
 const ProfileMap = ({zoom, homeLoc, showMarker, onMapClick, officeMarker}) => (
     <GoogleMap

@@ -20,5 +20,6 @@ protectedRouter.get('/api/v1/markers', security.protectedAccess, MarkerService.g
 protectedRouter.post('/api/v1/updateUserMarkers', security.protectedAccess, MarkerService.updateUserMarkers);
 
 protectedRouter.post('/api/v1/createConnection', security.protectedAccess, ConnectionService.createConnection);
+protectedRouter.get('/api/v1/connections', security.protectedAccess, ConnectionService.getConnections);
 
 export default protectedRouter;

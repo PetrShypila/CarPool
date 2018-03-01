@@ -13,10 +13,6 @@ export function loginUser(username, password) {
   );
 }
 
-function loginUserSuccess() {
-  return { type: ACTIONS.USER_ACTIVE_LOGIN };
-}
-
 export function signUpUser(user) {
   return () => (
     AuthApi.signUpUser(user).then(res => {
@@ -25,10 +21,6 @@ export function signUpUser(user) {
       }
     })
   );
-}
-
-function signUpUserSuccess() {
-  return { type: ACTIONS.USER_ACTIVE_SIGNUP };
 }
 
 export function logoutUser() {
@@ -43,8 +35,4 @@ export function logoutUser() {
       throw(err);
     })
   );
-}
-
-function logoutUserSuccess() {
-  return {type: ACTIONS.USER_ACTIVE_LOGOUT};
 }
