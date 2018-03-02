@@ -8,7 +8,7 @@ import {bindActionCreators} from 'redux';
 import { InfoWindow } from "react-google-maps";
 import * as usersActions from '../../actions/usersActions';
 import ConnectionsApi from '../../api/ConnectionsApi';
-import ConnectionButton from './ConnectionButton';
+import ConnectionButton from '../common/Button';
 import * as Constants from "../../store/constants";
 import * as directionsActions from "../../actions/directionsActions";
 import * as markerActions from "../../actions/markersActions";
@@ -17,21 +17,28 @@ import * as authActions from "../../actions/authActions";
 
 class UserInfoBox extends React.Component {
 
-  constructor(props, context) {
-    super(props, context);
+  static propTypes = {
+    user : PropTypes.object,
+    connection : PropTypes.object,
+    toggleInfoBox : PropTypes.func,
+    marker : PropTypes.object.isRequired,
+    showButton : PropTypes.bool.isRequired,
+    actions : PropTypes.shape({
+      getConnections: PropTypes.func.isRequired,
+      updateConnection: PropTypes.func.isRequired,
+      createConnection: PropTypes.func.isRequired
+    }),
+  };
 
-    this.state = {
-      connectionButtonText: this.updateConnectionButtonText(this.props)
-    };
-
-    this.sendConnectionRequest = this.sendConnectionRequest.bind(this);
-  }
+  state = {
+    connectionButtonText: this.updateConnectionButtonText(this.props)
+  };
 
   componentWillReceiveProps(nextProps) {
     this.setState({connectionButtonText: this.updateConnectionButtonText(nextProps)});
   }
 
-  updateConnectionButtonText(props) {
+  updateConnectionButtonText = (props) => {
     if(props.connection) {
       switch (props.connection.status) {
         case Constants.CONNECTION_STATUS_NEW:
@@ -43,9 +50,9 @@ class UserInfoBox extends React.Component {
     }
 
     return `Suggest to be my ${props.marker.type}`;
-  }
+  };
 
-  sendConnectionRequest(event){
+  sendConnectionRequest = (event) => {
     if(this.props.connection) {
       switch(this.props.connection.status) {
         case Constants.CONNECTION_STATUS_NEW:
@@ -60,7 +67,7 @@ class UserInfoBox extends React.Component {
       this.props.actions.createConnection(this.props.user.username, this.props.marker.type);
     }
 
-  }
+  };
 
   render() {
 
@@ -97,19 +104,6 @@ class UserInfoBox extends React.Component {
     );
   }
 }
-
-UserInfoBox.propTypes = {
-  user : PropTypes.object,
-  connection : PropTypes.object,
-  marker : PropTypes.object.isRequired,
-  showButton : PropTypes.bool.isRequired,
-  toggleInfoBox : PropTypes.func.isRequired,
-  actions : PropTypes.shape({
-    getConnections: PropTypes.func.isRequired,
-    updateConnection: PropTypes.func.isRequired,
-    createConnection: PropTypes.func.isRequired
-  }),
-};
 
 function mapStateToProps(state, ownProps) {
   return {

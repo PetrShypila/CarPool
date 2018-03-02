@@ -4,7 +4,7 @@
   "description": "Enterprise car pooling solution",
   "scripts": {
     "start": "SECRET=djwa0djwja0d9w0djwadhuwia9 babel-node index.js",
-    "dev": "DEV=true SECRET=djwa0djwja0d9w0djwadhuwia9 DEBUG=express-session npm-run-all --parallel db open:src lint:watch",
+    "dev": "DEV=true SECRET=djwa0djwja0d9w0djwadhuwia9 npm-run-all --parallel open:src lint:watch",
     "open:src": "babel-node --inspect index",
     "lint": "node_modules/.bin/esw webpack.config.* app",
     "lint:watch": "npm run lint -- --watch",
@@ -45,11 +45,13 @@
     "winston": "^3.0.0-rc1"
   },
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "7.1.2",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.2",
     "babel-plugin-react-display-name": "2.0.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.24.1",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-react": "6.24.1",
     "babel-preset-react-hmre": "1.1.1",

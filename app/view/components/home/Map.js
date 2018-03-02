@@ -19,21 +19,32 @@ import RightSideControls from "./RighrSideControls";
 
 class Map extends React.Component {
 
-  constructor(props, context) {
-    super(props, context);
+  static propTypes = {
+    users : PropTypes.array,
+    markers : PropTypes.array,
+    connections : PropTypes.array,
+    directions : PropTypes.object,
+    activeUser : PropTypes.object,
+    isMarkerShown : PropTypes.bool.isRequired,
+    actions : PropTypes.shape({
+      loadMarkers: PropTypes.func.isRequired,
+      loadActiveUser: PropTypes.func.isRequired,
+      logoutUser: PropTypes.func.isRequired,
+      getConnections: PropTypes.func.isRequired,
+      loadUsers: PropTypes.func.isRequired,
+      cleanRoutes: PropTypes.func.isRequired,
+      addToMap: PropTypes.func.isRequired,
+      hideFromMap: PropTypes.func.isRequired,
+      hideAllInfoBoxes: PropTypes.func.isRequired
+    }),
+  };
 
-    this.state = {
-      markers:[],
-      types: {
-        [Constants.TYPE_DRIVER]: true,
-        [Constants.TYPE_PASSENGER]: true,
-      }
-    };
-
-    this.onMapClick = this.onMapClick.bind(this);
-    this.filterMarkers = this.filterMarkers.bind(this);
-    this.onLogoutClick = this.onLogoutClick.bind(this);
-  }
+  state = {
+    types: {
+      [Constants.TYPE_DRIVER]: true,
+      [Constants.TYPE_PASSENGER]: true,
+    }
+  };
 
   componentDidMount() {
     this.props.actions.loadMarkers();
@@ -42,16 +53,16 @@ class Map extends React.Component {
     this.props.actions.getConnections();
   }
 
-  onMapClick() {
+  onMapClick = () => {
     this.props.actions.cleanRoutes();
     this.props.actions.hideAllInfoBoxes();
-  }
+  };
 
-  onLogoutClick() {
+  onLogoutClick = () => {
     this.props.actions.logoutUser();
-  }
+  };
 
-  filterMarkers(event){
+  filterMarkers = (event) => {
     const {types} = this.state;
     types[event.target.value] = event.target.checked;
     this.setState({types});
@@ -61,7 +72,7 @@ class Map extends React.Component {
     } else {
       this.props.actions.hideFromMap(event.target.value);
     }
-  }
+  };
 
   render() {
     const {markers, directions, activeUser, users, connections} = this.props;
@@ -89,26 +100,6 @@ class Map extends React.Component {
     );
   }
 }
-
-Map.propTypes = {
-  users : PropTypes.array,
-  markers : PropTypes.array,
-  connections : PropTypes.array,
-  directions : PropTypes.object,
-  activeUser : PropTypes.object,
-  isMarkerShown : PropTypes.bool.isRequired,
-  actions : PropTypes.shape({
-    loadMarkers: PropTypes.func.isRequired,
-    loadActiveUser: PropTypes.func.isRequired,
-    logoutUser: PropTypes.func.isRequired,
-    getConnections: PropTypes.func.isRequired,
-    loadUsers: PropTypes.func.isRequired,
-    cleanRoutes: PropTypes.func.isRequired,
-    addToMap: PropTypes.func.isRequired,
-    hideFromMap: PropTypes.func.isRequired,
-    hideAllInfoBoxes: PropTypes.func.isRequired
-  }),
-};
 
 function mapStateToProps(state, ownProps) {
   const {markers, directions, users, connections, activeUser} = state;

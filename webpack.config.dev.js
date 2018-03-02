@@ -22,8 +22,26 @@ export default {
   ],
   module: {
     rules: [
-      {test: /\.js$/, include: path.join(__dirname, 'app/view'), use: ['babel-loader']},
-      {test: /(\.css)$/, include: path.join(__dirname, 'app/view/styles'), use: ['style-loader', 'css-loader']}
+      {
+        test: /\.js$/,
+        include: path.join(__dirname, 'app/view'),
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ["react", "es2015"],
+            plugins: [
+              require('babel-plugin-transform-class-properties'),
+              require('babel-plugin-transform-object-rest-spread')
+            ]
+          }
+        }
+      },
+      {
+        test: /(\.css)$/,
+        include: path.join(__dirname, 'app/view/styles'),
+        use: ['style-loader', 'css-loader']
+      }
     ]
   }
 };
