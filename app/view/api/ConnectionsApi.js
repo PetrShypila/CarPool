@@ -3,7 +3,7 @@ import {CONNECTION_STATUS_ACTIVE, CONNECTION_STATUS_NEW} from "../store/constant
 class ConnectionsApi {
 
   static createNewConnection(receiver, service) {
-    return fetch('/api/v1/createConnection', {
+    return fetch('/api/v1/connection', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -14,12 +14,16 @@ class ConnectionsApi {
     });
   }
 
-  static cancelConnection(_id) {
-
-  }
-
-  static stopConnection(_id) {
-
+  static updateConnection(connectionId, propsForUpdate) {
+    return fetch(`/api/v1/connection/${connectionId}`, {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin',
+      body: JSON.stringify(propsForUpdate)
+    });
   }
 
   static getConnections() {

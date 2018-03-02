@@ -33,6 +33,20 @@ class ConnectionService {
     });
 
   }
+
+  static updateConnection(req, res) {
+    logger.debug(`Received id for connection update: ${req.params.id}`);
+
+    Connection.findOneAndUpdate({_id: req.params.id}, req.body, {upsert:false, new: true}, function(err, doc){
+      if (err) {
+        logger.error(`Error while updating connection ${req.params.id}. Message: ${err.message}`);
+        return res.status(500).send({ error: err.message });
+      } else {
+        logger.debug(`Connection updated: ${JSON.stringify(doc)}`);
+        return res.json(doc);
+      }
+    });
+  }
 }
 
 

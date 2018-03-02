@@ -23,19 +23,26 @@ export function createConnection(receiver, service) {
       throw(err);
     })
   );
-
 }
 
-export function cancelConnection(_id) {
-
-}
-
-export function stopConnection(_id) {
-
+export function updateConnection(connectionId, status) {
+  return (dispatch) => (
+    ConnectionsApi.updateConnection(connectionId, {status}).then(res => {
+      return res.json();
+    }).then(connection => {
+      dispatch(deleteConnection(connection._id));
+    }).catch(err => {
+      throw(err);
+    })
+  );
 }
 
 function loadConnectionsSuccess(connections) {
-  return {type: ACTIONS.CONNECTIONS_LOAD_SUCCESS, connections}
+  return {type: ACTIONS.CONNECTIONS_LOAD_SUCCESS, connections};
+}
+
+function deleteConnection(connectionId) {
+  return {type: ACTIONS.CONNECTIONS_DELETE_ONE, connectionId};
 }
 
 function addNewConnection(connection) {

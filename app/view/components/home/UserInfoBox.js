@@ -40,34 +40,30 @@ class UserInfoBox extends React.Component {
         case Constants.CONNECTION_STATUS_ACTIVE:
           return `Stop connection`;
       }
-    } else {
-      return `Suggest to be my ${props.marker.type}`;
     }
 
+    return `Suggest to be my ${props.marker.type}`;
   }
 
   sendConnectionRequest(event){
     if(this.props.connection) {
       switch(this.props.connection.status) {
         case Constants.CONNECTION_STATUS_NEW:
-          this.props.actions.cancelConnection(this.props.connection._id);
+          this.props.actions.updateConnection(this.props.connection._id, Constants.CONNECTION_STATUS_CANCELLED);
           break;
 
         case Constants.CONNECTION_STATUS_ACTIVE:
-          this.props.actions.stopConnection(this.props.connection._id);
+          this.props.actions.updateConnection(this.props.connection._id, Constants.CONNECTION_STATUS_STOPPED);
           break;
       }
     } else {
       this.props.actions.createConnection(this.props.user.username, this.props.marker.type);
-      this.setState({connectionButtonText: `Invitation sent`});
-      event.target.disabled = true;
-      event.target.classList.add("disabled");
     }
 
   }
 
   render() {
-    console.log(`${JSON.stringify(this.props.user)} RERENDERING: ${this.state.connectionButtonText}`);
+
     let infoBox = null;
     if(this.props.user) {
       const userFullName = `${this.props.user.firstname} ${this.props.user.lastname}`;
@@ -110,6 +106,7 @@ UserInfoBox.propTypes = {
   toggleInfoBox : PropTypes.func.isRequired,
   actions : PropTypes.shape({
     getConnections: PropTypes.func.isRequired,
+    updateConnection: PropTypes.func.isRequired,
     createConnection: PropTypes.func.isRequired
   }),
 };
