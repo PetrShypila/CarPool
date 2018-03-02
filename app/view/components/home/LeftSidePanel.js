@@ -2,8 +2,9 @@ import * as React from "react";
 import FilterInput from "../common/FilterInput";
 import * as Constants from "../../store/constants";
 import PropTypes from "prop-types";
+import InboxRequest from "./InboxRequest";
 
-const LeftSidePanel = ({onFilterClick, types}) => (
+const LeftSidePanel = ({onFilterClick, types,  users, connections}) => (
   <div className="left-panel">
     <div className="filters">
       <FilterInput name={"types-filter"}
@@ -22,7 +23,8 @@ const LeftSidePanel = ({onFilterClick, types}) => (
       />
     </div>
     <div className={`inbox`}>
-      Here is your inbox
+      <p>Here is your inbox</p>
+      {users && connections.map(c => (<InboxRequest key={c._id} connection={c} user={users.find(u => (u.username === c.requester))} />))}
     </div>
     <div className="info">
       <span><b>Info section:</b></span>
@@ -37,6 +39,8 @@ const LeftSidePanel = ({onFilterClick, types}) => (
 );
 
 LeftSidePanel.propTypes = {
+  users : PropTypes.array,
+  connections : PropTypes.array.isRequired,
   types : PropTypes.object.isRequired,
   onFilterClick : PropTypes.func.isRequired
 };

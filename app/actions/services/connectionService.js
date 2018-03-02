@@ -23,6 +23,10 @@ class ConnectionService {
 
   static getConnections(req, res) {
     logger.debug(`Received params to gather existing connections.`);
+    req.query.$or = [
+      {requester: req.session.user.username},
+      {receiver: req.session.user.username}
+    ];
 
     Connection.find(Object.assign({}, req.query)).then(connections => {
       logger.debug(`${connections.length} connection received`);

@@ -64,12 +64,16 @@ class Map extends React.Component {
   }
 
   render() {
-    const {markers, directions, activeUser} = this.props;
+    const {markers, directions, activeUser, users, connections} = this.props;
 
     return (
       <div>
-        <LeftSidePanel types={this.state.types} onFilterClick={this.filterMarkers} />
-
+        { activeUser &&
+          <LeftSidePanel connections={connections.filter(c => (c.receiver === activeUser.username))}
+                        users={users}
+                        types={this.state.types}
+                        onFilterClick={this.filterMarkers}/>
+        }
         <GoogleMap
           defaultZoom= {Constants.MAP_DEF_ZOOM}
           defaultCenter={Constants.MAP_CENTER}
@@ -87,10 +91,12 @@ class Map extends React.Component {
 }
 
 Map.propTypes = {
-  isMarkerShown : PropTypes.bool.isRequired,
+  users : PropTypes.array,
   markers : PropTypes.array,
+  connections : PropTypes.array,
   directions : PropTypes.object,
   activeUser : PropTypes.object,
+  isMarkerShown : PropTypes.bool.isRequired,
   actions : PropTypes.shape({
     loadMarkers: PropTypes.func.isRequired,
     loadActiveUser: PropTypes.func.isRequired,
@@ -105,8 +111,8 @@ Map.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const {markers, directions, activeUser} = state;
-  return {markers, directions, activeUser};
+  const {markers, directions, users, connections, activeUser} = state;
+  return {markers, directions, users, connections, activeUser};
 }
 
 function mapDispatchToProps(dispatch) {
