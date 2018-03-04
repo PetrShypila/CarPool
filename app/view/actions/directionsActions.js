@@ -13,9 +13,9 @@ export function buildRouteToHost(direction) {
       travelMode: google.maps.TravelMode.DRIVING,
     }, (result, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
-        dispatch(typeShowMarkerInfoBox(result));
+        dispatch(typeDirectionBuild(result));
       } else {
-        dispatch(typeShowMarkerInfoBox(null));
+        dispatch(typeDirectionBuild(null));
       }
     });
   };
@@ -25,6 +25,6 @@ export function cleanRoutes() {
   return {type: ACTIONS.DIRECTIONS_CLEAR, directions:null};
 }
 
-function typeShowMarkerInfoBox(directions) {
+function typeDirectionBuild(directions) {
   return {type: ACTIONS.DIRECTION_BUILD, directions};
 }

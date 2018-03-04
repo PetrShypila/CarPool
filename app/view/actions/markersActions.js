@@ -1,8 +1,16 @@
 import * as ACTIONS from '../actions/actionTypes';
 import MarkersApi from '../api/MarkersApi';
 
+export function toggleMarkerInfoBox(markerId) {
+  return {type: ACTIONS.MARKER_TOGGLE_INFOBOX, markerId};
+}
+
 export function showMarkerInfoBox(markerId) {
   return {type: ACTIONS.MARKER_SHOW_INFOBOX, markerId};
+}
+
+export function hideMarkerInfoBox(markerId) {
+  return {type: ACTIONS.MARKER_HIDE_INFOBOX, markerId};
 }
 
 export function hideAllInfoBoxes() {

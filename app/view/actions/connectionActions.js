@@ -1,12 +1,13 @@
 import * as ACTIONS from "./actionTypes";
 import ConnectionsApi from "../api/ConnectionsApi";
+import * as Constants from "../store/constants";
 
 export function getConnections() {
   return (dispatch) => (
     ConnectionsApi.getConnections().then(res => {
       return res.json();
     }).then(connections => {
-      dispatch(loadConnectionsSuccess(connections));
+      dispatch(typeLoadConnectionsSuccess(connections));
     }).catch(err => {
       throw(err);
     })
@@ -18,7 +19,7 @@ export function createConnection(receiver, service) {
     ConnectionsApi.createNewConnection(receiver, service).then(res => {
       return res.json();
     }).then(connection => {
-      dispatch(addNewConnection(connection));
+      dispatch(typeAddNewConnection(connection));
     }).catch(err => {
       throw(err);
     })
@@ -30,21 +31,21 @@ export function updateConnection(connectionId, status) {
     ConnectionsApi.updateConnection(connectionId, {status}).then(res => {
       return res.json();
     }).then(connection => {
-      dispatch(deleteConnection(connection._id));
+      dispatch(typeUpdateConnection(connection));
     }).catch(err => {
       throw(err);
     })
   );
 }
 
-function loadConnectionsSuccess(connections) {
+function typeLoadConnectionsSuccess(connections) {
   return {type: ACTIONS.CONNECTIONS_LOAD_SUCCESS, connections};
 }
 
-function deleteConnection(connectionId) {
-  return {type: ACTIONS.CONNECTIONS_DELETE_ONE, connectionId};
+function typeUpdateConnection(connection) {
+  return {type: ACTIONS.CONNECTIONS_UPDATE_ONE, connection};
 }
 
-function addNewConnection(connection) {
+function typeAddNewConnection(connection) {
   return {type: ACTIONS.CONNECTIONS_ADD_NEW, connection};
 }

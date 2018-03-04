@@ -1,7 +1,7 @@
 export default {
-  markers: [],
-  users: [],
-  connections: [],
+  markers: null,
+  users: null,
   directions: null,
-  activeUser: null
+  activeUser: null,
+  connections: null,
 };

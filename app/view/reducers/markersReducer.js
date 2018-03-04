@@ -17,12 +17,34 @@ export default function markersReducer(state = initialState.markers, action){
         return marker;
       });
 
-    case ACTIONS.MARKER_SHOW_INFOBOX: {
+    case ACTIONS.MARKER_TOGGLE_INFOBOX: {
       return state.map(m => {
 
         let marker = Object.assign({}, m);
 
         if(marker._id === action.markerId) marker.infoBoxVisible = !marker.infoBoxVisible;
+
+        return marker;
+      });
+    }
+
+    case ACTIONS.MARKER_SHOW_INFOBOX: {
+      return state.map(m => {
+
+        let marker = Object.assign({}, m);
+
+        if(marker._id === action.markerId) marker.infoBoxVisible = true;
+
+        return marker;
+      });
+    }
+
+    case ACTIONS.MARKER_HIDE_INFOBOX: {
+      return state.map(m => {
+
+        let marker = Object.assign({}, m);
+
+        if(marker._id === action.markerId) marker.infoBoxVisible = false;
 
         return marker;
       });

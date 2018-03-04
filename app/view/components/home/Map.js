@@ -76,12 +76,15 @@ class Map extends React.Component {
 
   render() {
     const {markers, directions, activeUser, users, connections} = this.props;
-
     return (
       <div>
-        { activeUser &&
-          <LeftSidePanel connections={connections.filter(c => (c.receiver === activeUser.username))}
+        {activeUser && connections && users &&
+         <LeftSidePanel connections={connections.filter(c =>
+                                        (c.receiver === activeUser.username &&
+                                         [Constants.CONNECTION_STATUS_NEW, Constants.CONNECTION_STATUS_ACTIVE].includes(c.status)
+                                        ))}
                         users={users}
+                        activeUsername={activeUser.username}
                         types={this.state.types}
                         onFilterClick={this.filterMarkers}/>
         }
@@ -91,7 +94,13 @@ class Map extends React.Component {
           onClick={this.onMapClick}
           options={{disableDefaultUI: true, zoomControl: true, zoomControlOptions: { style: google.maps.ZoomControlStyle.LARGE }}}
         >
-          {markers && activeUser && markers.map(m => (<MarkerWrapper key={m._id} marker={m} username={activeUser.username} />))}
+          {activeUser && connections && users &&
+           markers.map(m => (<MarkerWrapper key={m._id}
+                                            marker={m}
+                                            user={users.find(u => u.username === m.username)}
+                                            connection={connections.find(c => ([c.requester, c.receiver].includes(m.username) && c.service === m.type))}
+                                            activeUsername={activeUser.username} />))
+          }
           {directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={directions} />}
         </GoogleMap>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import {GoogleMap, Marker} from "react-google-maps";
+import {GoogleMap, InfoWindow, Marker} from "react-google-maps";
 
 import * as Constants from '../../store/constants';
 import UserInfoBox from "../home/UserInfoBox";
@@ -27,8 +27,9 @@ function ProfileMap({zoom, homeLoc, showMarker, onMapClick, officeMarker}) {
                               url: Constants.ICON_COMPANY,
                               scaledSize: {height: 48, width: 48}
                             }} >
-        <UserInfoBox showButton={false}
-                     marker={{username: `Your office is here!`}} />
+        <InfoWindow>
+          <div>Your office is here</div>
+        </InfoWindow>
       </Marker> }
 
       { showMarker && <Marker

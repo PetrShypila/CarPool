@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import * as markerActions from '../../actions/markersActions';
 import * as directionsActions from '../../actions/directionsActions';
 
-import { Marker } from "react-google-maps";
+import {InfoWindow, Marker} from "react-google-maps";
 import UserInfoBox from '../home/UserInfoBox';
 import * as Constants from "../../store/constants";
 
@@ -17,62 +17,63 @@ const markerIcons = {
 };
 
 class MarkerWrapper extends React.Component {
+  static propTypes = {
+    connection: PropTypes.object,
+    user: PropTypes.object,
+    host: PropTypes.object.isRequired,
+    activeUsername: PropTypes.string.isRequired,
+    marker: PropTypes.object.isRequired,
+    actions: PropTypes.shape({
+      toggleMarkerInfoBox: PropTypes.func.isRequired,
+      buildRouteToHost: PropTypes.func.isRequired,
+      hideAllInfoBoxes: PropTypes.func.isRequired
+    })
+  };
 
+  state = {
+    markerClicked: false
+  };
 
-  constructor(props, context) {
-    super(props, context);
+  toggleInfoBox = () => {
+    this.props.actions.toggleMarkerInfoBox(this.props.marker._id);
+  };
 
-    this.markerClicked = this.markerClicked.bind(this);
-    this.toggleInfoBox = this.toggleInfoBox.bind(this);
-    this.getMarkerIcon = this.getMarkerIcon.bind(this);
-    this.onMouseOut = this.onMouseOut.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
-
-    this.state = {
-      markerClicked: false
-    };
-  }
-
-  toggleInfoBox() {
-    this.props.actions.showMarkerInfoBox(this.props.marker._id);
-  }
-
-  buildRouteToHost() {
+  buildRouteToHost = () => {
     const direction = {
       origin: this.props.marker.coordinates,
       destination: this.props.host.coordinates
     };
 
     this.props.actions.buildRouteToHost(direction);
-  }
+  };
 
-  markerClicked() {
+  markerClicked = () => {
     this.buildRouteToHost();
     this.setState({markerClicked: true});
-  }
+  };
 
-  onMouseOut() {
+  onMouseOut = () => {
     if(! this.state.markerClicked) {
       this.props.actions.hideAllInfoBoxes();
     }
-  }
+  };
 
-  onMouseOver() {
+  onMouseOver = () => {
     this.toggleInfoBox();
-  }
+  };
 
-  getMarkerIcon(marker, username) {
+  getMarkerIcon = (marker, username) =>  {
     if(marker.username === username) {
       return markerIcons[Constants.TYPE_USER];
     } else {
       return markerIcons[marker.type];
     }
-  }
+  };
 
   render() {
     return <Marker position={this.props.marker.coordinates}
                    defaultIcon={{
-                     url: this.getMarkerIcon(this.props.marker, this.props.username),
+                     url: this.getMarkerIcon(this.props.marker, this.props.activeUsername),
                      scaledSize: {height: 48, width: 48}
                    }}
                    visible={this.props.marker.visible}
@@ -80,24 +81,22 @@ class MarkerWrapper extends React.Component {
                    onMouseOver={this.onMouseOver}
                    onMouseOut={this.onMouseOut}
     >
-      { this.props.marker.infoBoxVisible && <UserInfoBox
-                                                    marker={this.props.marker}
-                                                    showButton={this.props.username !== this.props.marker.username}
-                                                    toggleInfoBox={this.toggleInfoBox}/> }
+      { this.props.marker.infoBoxVisible &&
+        <InfoWindow onCloseClick={this.toggleInfoBox}>
+          {this.props.user ?
+            <UserInfoBox
+              showDetails
+              user = {this.props.user}
+              serviceType={this.props.marker.type}
+              connection={this.props.connection}
+              activeUsername={this.props.activeUsername}
+              showButton={this.props.activeUsername !== this.props.marker.username} /> :
+            <div>Your office is here</div>}
+        </InfoWindow>
+      }
     </Marker>;
   }
 }
-
-MarkerWrapper.propTypes = {
-  host: PropTypes.object.isRequired,
-  username: PropTypes.string.isRequired,
-  marker: PropTypes.object.isRequired,
-  actions: PropTypes.shape({
-    showMarkerInfoBox: PropTypes.func.isRequired,
-    buildRouteToHost: PropTypes.func.isRequired,
-    hideAllInfoBoxes: PropTypes.func.isRequired
-  })
-};
 
 function mapStateToProps(state, ownProps) {
   const host = state.markers.find(marker => marker.type === Constants.TYPE_COMPANY ? marker : false);
