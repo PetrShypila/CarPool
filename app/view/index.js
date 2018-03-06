@@ -1,10 +1,8 @@
-'use strict';
 import './styles/custom_styles.css';
-import 'babel-polyfill';
 
 import React from 'react';
 import {Provider} from 'react-redux';
-import * as ReactDOM from "react-dom";
+import {render} from "react-dom";
 import {BrowserRouter} from 'react-router-dom';
 
 import App from './components/App';
@@ -12,7 +10,7 @@ import configureStore from './store/configureStore';
 
 const store = configureStore();
 
-ReactDOM.render((
+render((
   <BrowserRouter>
     <Provider store={store}>
       <App/>

@@ -7,12 +7,13 @@ import InboxRequest from "./InboxRequest";
 LeftSidePanel.propTypes = {
   activeUsername: PropTypes.string.isRequired,
   users : PropTypes.array.isRequired,
+  markers : PropTypes.array.isRequired,
   connections : PropTypes.array.isRequired,
   types : PropTypes.object.isRequired,
   onFilterClick : PropTypes.func.isRequired
 };
 
-function LeftSidePanel({onFilterClick, types, users, connections, activeUsername}) {
+function LeftSidePanel({onFilterClick, types, users, markers, connections, activeUsername}) {
   return (
     <div className="left-panel">
       <div className="filters">
@@ -35,6 +36,7 @@ function LeftSidePanel({onFilterClick, types, users, connections, activeUsername
         <p>Connections</p>
         {connections.map(c => (<InboxRequest key={c._id}
                                              connection={c}
+                                             marker={markers.find(m => m.username === c.requester)}
                                              user={users.find(u => u.username === c.requester)}
                                              activeUsername={activeUsername} />))}
       </div>

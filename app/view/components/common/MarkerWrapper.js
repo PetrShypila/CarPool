@@ -99,11 +99,9 @@ class MarkerWrapper extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  const host = state.markers.find(marker => marker.type === Constants.TYPE_COMPANY ? marker : false);
+  const host = state.markers.find(marker => marker.type === Constants.TYPE_COMPANY);
 
-  return {
-    host: host
-  };
+  return { host };
 }
 
 function mapDispatchToProps(dispatch) {

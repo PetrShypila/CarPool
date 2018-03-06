@@ -78,12 +78,13 @@ class Map extends React.Component {
     const {markers, directions, activeUser, users, connections} = this.props;
     return (
       <div>
-        {activeUser && connections && users &&
+        {activeUser && connections && users && markers &&
          <LeftSidePanel connections={connections.filter(c =>
                                         (c.receiver === activeUser.username &&
                                          [Constants.CONNECTION_STATUS_NEW, Constants.CONNECTION_STATUS_ACTIVE].includes(c.status)
                                         ))}
                         users={users}
+                        markers={markers}
                         activeUsername={activeUser.username}
                         types={this.state.types}
                         onFilterClick={this.filterMarkers}/>
