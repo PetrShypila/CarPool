@@ -55,7 +55,7 @@ class InboxRequest extends React.Component {
   };
 
   render() {
-    if(this.props.marker) console.log(`INBOX: ${JSON.stringify(this.props.marker)}`);
+
     return (
       <div style={this.state.hover ?
                     {backgroundColor: '#cecece', cursor: 'pointer'} :

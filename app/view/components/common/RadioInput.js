@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const RadioInput = ({name, label, onChange, placeholder, value, error}) => {
+const RadioInput = ({name, label, onChange, checked, value, error}) => {
   let wrapperClass = 'form-group';
   if (error && error.length > 0) {
     wrapperClass += " " + 'has-error';
@@ -9,17 +9,19 @@ const RadioInput = ({name, label, onChange, placeholder, value, error}) => {
 
   return (
     <div className={wrapperClass}>
-      <label htmlFor={name}>{label}</label>
+
       <div className="field">
         <input
           type="radio"
           name={name}
-          className="form-control"
-          placeholder={placeholder}
+          checked={checked}
           value={value}
-          onChange={onChange}/>
+          onChange={onChange}
+          style={{marginRight: '10px'}}
+        />{label}<br/>
         {error && <div className="alert alert-danger">{error}</div>}
       </div>
+
     </div>
   );
 };
@@ -27,9 +29,9 @@ const RadioInput = ({name, label, onChange, placeholder, value, error}) => {
 RadioInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
-  placeholder: PropTypes.string,
-  value: PropTypes.string,
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
   error: PropTypes.string
 };
 

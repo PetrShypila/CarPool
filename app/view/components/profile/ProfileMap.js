@@ -6,18 +6,18 @@ import * as Constants from '../../store/constants';
 import UserInfoBox from "../home/UserInfoBox";
 
 ProfileMap.propTypes = {
-  zoom : PropTypes.number.isRequired,
-  homeLoc : PropTypes.object.isRequired,
+  marker : PropTypes.object,
   officeMarker : PropTypes.object,
-  showMarker : PropTypes.bool.isRequired,
+  zoom : PropTypes.number.isRequired,
   onMapClick: PropTypes.func.isRequired
 };
 
-function ProfileMap({zoom, homeLoc, showMarker, onMapClick, officeMarker}) {
+function ProfileMap({zoom, marker, officeMarker, onMapClick}) {
+
   return (
     <GoogleMap
       defaultZoom={zoom}
-      defaultCenter={homeLoc}
+      defaultCenter={marker ? marker.coordinates : Constants.MAP_CENTER}
       onClick={onMapClick}
     >
       { officeMarker && <Marker
@@ -32,13 +32,13 @@ function ProfileMap({zoom, homeLoc, showMarker, onMapClick, officeMarker}) {
         </InfoWindow>
       </Marker> }
 
-      { showMarker && <Marker
-                          visible
-                          position={homeLoc}
-                          defaultIcon={{
-                            url: Constants.ICON_USER,
-                            scaledSize: {height: 48, width: 48}
-                          }} /> }
+      { marker && <Marker
+                      visible
+                      position={marker.coordinates}
+                      defaultIcon={{
+                        url: Constants.ICON_USER,
+                        scaledSize: {height: 48, width: 48}
+                      }} /> }
     </GoogleMap>
   );
 }

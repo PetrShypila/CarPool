@@ -9,19 +9,9 @@ function getMarkers(req, res) {
 
 function updateUserMarkers(req, res) {
 
-  if(req.body.types) {
-    const username = res.locals.user.username;
-    const newMarkers = [];
+  if(req.body.marker) {
 
-    Object.keys(req.body.types).forEach(type => {
-      if(req.body.types[type]) {
-        newMarkers.push({
-          username,
-          type,
-          coordinates: req.body.latLng
-        });
-      }
-    });
+    const username = res.locals.user.username;
 
     Marker.remove({ username }, function (err) {
       if (err) {
@@ -30,24 +20,24 @@ function updateUserMarkers(req, res) {
       } else {
         logger.info(`Markers for user ${username} were removed`);
 
-        newMarkers.forEach(m => {
 
-          const marker = new Marker(m);
+        const marker = new Marker(req.body.marker);
 
-          marker.save().then(saved => {
-            logger.info(`Marker ${JSON.stringify(saved)} saved`);
-          }).catch(err => {
-            logger.error(`Marker ${JSON.stringify(marker)} has not been saved. Error ${err.message}`);
+        marker.save().then(m => {
+          logger.info(`Marker ${JSON.stringify(m)} saved`);
+
+          return res.json({
+            user: res.locals.user,
+            markers: [m]
           });
-        });
-        res.json({
-          user: res.locals.user,
-          markers: newMarkers
+        }).catch(err => {
+          logger.error(`Marker ${JSON.stringify(marker)} has not been saved. Error ${err.message}`);
+          return res.status(500).send({ error: err.message });
         });
       }
     });
   } else {
-    res.json({user: res.locals.user});
+    return res.json({user: res.locals.user});
   }
 }
 

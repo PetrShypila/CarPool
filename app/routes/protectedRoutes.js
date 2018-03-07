@@ -13,7 +13,7 @@ protectedRouter.get('/profile', security.protectedAccess, (req, res) => (res.sen
 protectedRouter.get('/home', security.protectedAccess, (req, res) => (res.sendFile(path.join( __dirname, '../view/index.html'))));
 
 protectedRouter.put('/api/v1/updateProfile', security.protectedAccess, UserService.updateUser, MarkerService.updateUserMarkers);
-protectedRouter.get('/api/v1/activeUser', security.protectedAccess, (req, res) => (res.json(req.session.user)));
+protectedRouter.get('/api/v1/activeUser', security.protectedAccess, UserService.getActiveUser);
 protectedRouter.get('/api/v1/users', security.protectedAccess, UserService.getAllUsers);
 
 protectedRouter.get('/api/v1/markers', security.protectedAccess, MarkerService.getMarkers);

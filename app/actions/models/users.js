@@ -7,7 +7,7 @@ const UserSchema = new db.Schema({
   firstname: {type: String, default: ''},
   lastname: {type: String, default: ''},
   phone: {type: String, default: ''},
-  types: {type: Array, default: []},
+  type: {type: String, default: ''},
   __v: { type: Number, select: false}
 });
 

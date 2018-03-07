@@ -3,6 +3,7 @@ import axios from 'axios';
 import logger from '../../logging';
 import config from '../../config';
 import User from '../models/users';
+import Marker from "../models/marker";
 
 axios.defaults.headers.common[config.auth.key] = config.auth.val;
 
@@ -29,18 +30,24 @@ function findByUsername(name) {
   return User.findOne({username: name.toLowerCase()});
 }
 
+function getActiveUser(req, res) {
+  return User.findOne({username: req.session.user.username.toLowerCase()}).then(user => {
+    res.json(user);
+  }).catch(err => {
+    return res.status(500).send({ error: err.message });
+  });
+}
+
 function updateUser(req, res, next) {
   req.body.user.username = req.session.user.username;
-  req.body.user.types = Object.keys(req.body.types);
 
   delete req.body.user._id;
-  delete req.body.user.__v;
 
-  const query = {'username':req.body.user.username};
+  const {username} = req.body.user;
 
   logger.info(`Saving user into datastore: ${JSON.stringify(req.body.user)}`);
 
-  User.findOneAndUpdate(query, req.body.user, {upsert:true, new:true}, function(err, doc){
+  User.findOneAndUpdate({username}, req.body.user, {new:true}, (err, doc) => {
     if (err) {
       logger.error(`Error saving user ${JSON.stringify(req.body.user)} into database. Error message ${err.message}`);
       return res.status(500).send({ error: err.message });
@@ -65,5 +72,6 @@ export default {
   signUpUser,
   loginUser,
   createUser,
+  getActiveUser,
   findByUsername
 };
