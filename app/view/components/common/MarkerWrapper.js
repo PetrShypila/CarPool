@@ -21,7 +21,7 @@ class MarkerWrapper extends React.Component {
     connection: PropTypes.object,
     user: PropTypes.object,
     host: PropTypes.object.isRequired,
-    activeUsername: PropTypes.string.isRequired,
+    activeUser: PropTypes.object.isRequired,
     marker: PropTypes.object.isRequired,
     actions: PropTypes.shape({
       toggleMarkerInfoBox: PropTypes.func.isRequired,
@@ -70,27 +70,37 @@ class MarkerWrapper extends React.Component {
     }
   };
 
+  onlyPassenger = (user) => {
+    return user.types.length === 1 && user.types[0] === Constants.TYPE_PASSENGER;
+  };
+
   render() {
-    return <Marker position={this.props.marker.coordinates}
+    const {marker, user, connection, activeUser} = this.props;
+
+    return <Marker position={marker.coordinates}
                    defaultIcon={{
-                     url: this.getMarkerIcon(this.props.marker, this.props.activeUsername),
+                     url: this.getMarkerIcon(marker, activeUser.username),
                      scaledSize: {height: 48, width: 48}
                    }}
-                   visible={this.props.marker.visible}
+                   visible={marker.visible}
                    onClick={this.markerClicked}
                    onMouseOver={this.onMouseOver}
                    onMouseOut={this.onMouseOut}
     >
-      { this.props.marker.infoBoxVisible &&
+      { marker.infoBoxVisible &&
         <InfoWindow onCloseClick={this.toggleInfoBox}>
-          {this.props.user ?
+          {user ?
             <UserInfoBox
               showDetails
-              user = {this.props.user}
-              serviceType={this.props.marker.type}
-              connection={this.props.connection}
-              activeUsername={this.props.activeUsername}
-              showButton={this.props.activeUsername !== this.props.marker.username} /> :
+              user = {user}
+              markerId={marker._id}
+              serviceType={marker.type}
+              connection={connection}
+              activeUsername={activeUser.username}
+              showButton={
+                (activeUser.username !== marker.username) &&
+                !(marker.type === Constants.TYPE_PASSENGER && this.onlyPassenger(activeUser))
+              } /> :
             <div>Your office is here</div>}
         </InfoWindow>
       }

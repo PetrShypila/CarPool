@@ -14,8 +14,8 @@ import * as authActions from "../../actions/authActions";
 
 class Profile extends React.Component {
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super();
 
     const {homeLoc, showMarker, activeTypes, activeUser} = props;
 

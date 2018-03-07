@@ -14,9 +14,9 @@ export function getConnections() {
   );
 }
 
-export function createConnection(receiver, service) {
+export function createConnection(receiver, service, markerId) {
   return (dispatch) => (
-    ConnectionsApi.createNewConnection(receiver, service).then(res => {
+    ConnectionsApi.createNewConnection(receiver, service,  markerId).then(res => {
       return res.json();
     }).then(connection => {
       dispatch(typeAddNewConnection(connection));

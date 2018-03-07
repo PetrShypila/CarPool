@@ -10,6 +10,7 @@ const ConnectionSchema = new db.Schema({
 
   service: {type: String, required: true},
   status: {type: String, required: true},
+  markerId: {type: String, required: true},
 
   __v: { type: Number, select: false}
 });

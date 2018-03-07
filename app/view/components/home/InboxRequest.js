@@ -55,6 +55,7 @@ class InboxRequest extends React.Component {
   };
 
   render() {
+    if(this.props.marker) console.log(`INBOX: ${JSON.stringify(this.props.marker)}`);
     return (
       <div style={this.state.hover ?
                     {backgroundColor: '#cecece', cursor: 'pointer'} :
@@ -78,9 +79,7 @@ class InboxRequest extends React.Component {
 
 
 function mapStateToProps(state, ownProps) {
-  const {requester, service} = ownProps.connection;
-  const marker = state.markers.find(m => (m.username === requester && m.type === service));
-  return {marker};
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {

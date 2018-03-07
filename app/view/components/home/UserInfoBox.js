@@ -13,6 +13,7 @@ class UserInfoBox extends React.Component {
 
   static propTypes = {
     user : PropTypes.object,
+    markerId : PropTypes.string,
     connection : PropTypes.object,
     showButton : PropTypes.bool.isRequired,
     showDetails : PropTypes.bool.isRequired,
@@ -29,7 +30,7 @@ class UserInfoBox extends React.Component {
     if(this.props.connection) {
     this.props.actions.updateConnection(this.props.connection._id, Constants.CONNECTION_STATUS_ACTIVE);
     } else {
-      this.props.actions.createConnection(this.props.user.username, this.props.serviceType);
+      this.props.actions.createConnection(this.props.user.username, this.props.serviceType,  this.props.markerId);
     }
   };
 

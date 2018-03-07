@@ -31,6 +31,8 @@ function findByUsername(name) {
 
 function updateUser(req, res, next) {
   req.body.user.username = req.session.user.username;
+  req.body.user.types = Object.keys(req.body.types);
+
   delete req.body.user._id;
   delete req.body.user.__v;
 

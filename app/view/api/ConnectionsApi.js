@@ -2,7 +2,7 @@ import {CONNECTION_STATUS_ACTIVE, CONNECTION_STATUS_NEW} from "../store/constant
 
 class ConnectionsApi {
 
-  static createNewConnection(receiver, service) {
+  static createNewConnection(receiver, service, markerId) {
     return fetch('/api/v1/connection', {
       method: 'POST',
       headers: {
@@ -10,7 +10,7 @@ class ConnectionsApi {
         'Content-Type': 'application/json'
       },
       credentials: 'same-origin',
-      body: JSON.stringify({receiver, service})
+      body: JSON.stringify({receiver, service, markerId})
     });
   }
 
