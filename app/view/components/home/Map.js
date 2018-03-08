@@ -105,7 +105,8 @@ class Map extends React.Component {
           {directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={directions} />}
         </GoogleMap>
 
-        <RightSideControls onLogout={this.onLogoutClick}/>
+        <RightSideControls activeUser={activeUser}
+                           onLogout={this.onLogoutClick}/>
       </div>
     );
   }
