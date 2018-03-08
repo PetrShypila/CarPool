@@ -68,9 +68,9 @@ class Map extends React.Component {
     this.setState({types});
 
     if(event.target.checked) {
-      this.props.actions.addToMap(event.target.value);
+      this.props.actions.addToMap(event.target.value,  this.props.activeUser.username);
     } else {
-      this.props.actions.hideFromMap(event.target.value);
+      this.props.actions.hideFromMap(event.target.value,  this.props.activeUser.username);
     }
   };
 

@@ -17,12 +17,12 @@ export function hideAllInfoBoxes() {
   return {type: ACTIONS.MARKER_HIDE_INFOBOXES};
 }
 
-export function addToMap(markerType) {
-  return {type:ACTIONS.MARKERS_ADD_TO_MAP, markerType};
+export function addToMap(markerType, activeUsername) {
+  return {type:ACTIONS.MARKERS_ADD_TO_MAP, markerType, activeUsername};
 }
 
-export function hideFromMap(markerType) {
-  return {type:ACTIONS.MARKERS_HIDE_FROM_MAP, markerType};
+export function hideFromMap(markerType, activeUsername) {
+  return {type:ACTIONS.MARKERS_HIDE_FROM_MAP, markerType, activeUsername};
 }
 
 export function loadMarkers() {

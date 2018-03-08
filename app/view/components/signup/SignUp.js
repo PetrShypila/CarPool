@@ -5,34 +5,31 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 
 class SignUp extends React.Component {
+  static propTypes = {
+    actions : PropTypes.shape({
+      signupUser: PropTypes.func.isRequired
+    }),
+  };
 
-  constructor(props, context) {
-    super(props, context);
+  state = {
+    email:'',
+    username:'',
+    phone:'',
+    firstname:'',
+    lastname:'',
+    password:''
+  };
 
-    this.state = {
-      email:'',
-      username:'',
-      phone:'',
-      firstname:'',
-      lastname:'',
-      password:''
-    };
-
-    this.submitCreds = this.submitCreds.bind(this);
-    this.updateValue = this.updateValue.bind(this);
-  }
-
-  submitCreds(event) {
+  submitCreds = (event) => {
+    event.preventDefault();
     const { username, password, firstname, lastname, phone } = this.state;
 
-    this.props.actions.signUpUser({ username, password, firstname, lastname, phone });
-    event.preventDefault();
-  }
+    this.props.actions.signupUser({ username, password, firstname, lastname, phone });
+  };
 
-  updateValue(event) {
+  updateValue = (event) => {
     this.setState({[event.target.name]: event.target.value});
-    event.preventDefault();
-  }
+  };
 
   render() {
     return (
@@ -54,12 +51,6 @@ class SignUp extends React.Component {
     );
   }
 }
-
-SignUp.propTypes = {
-  actions : PropTypes.shape({
-    signUpUser: PropTypes.func.isRequired
-  }),
-};
 
 function mapStateToProps(state, ownProps) {
   return {};

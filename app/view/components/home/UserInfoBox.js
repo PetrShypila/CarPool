@@ -86,11 +86,12 @@ class UserInfoBox extends React.Component {
   };
 
   render() {
-    const userFullName = `${this.props.user.firstname} ${this.props.user.lastname}`;
+    const {user} = this.props;
+    const userFullName = `${user.firstname} ${user.lastname}`;
 
     return (
       <div className="user-info-box">
-        <img src={this.props.user.pic}
+        <img src={user.pic ? user.pic : Constants.DEF_AVATAR}
              alt={userFullName}
              className="user-pic"
         />
@@ -98,8 +99,8 @@ class UserInfoBox extends React.Component {
           <div><b>{userFullName}</b></div>
           {this.props.showDetails &&
           <div>
-            <div><a href={`mailto:${this.props.user.username}`}>{`${this.props.user.username}`}</a></div>
-            <div>{`${this.props.user.phone}`}</div>
+            <div><a href={`mailto:${user.username}`}>{`${user.username}`}</a></div>
+            <div>{`${user.phone}`}</div>
           </div>
           }
           {

@@ -55,7 +55,7 @@ export default function markersReducer(state = initialState.markers, action){
 
         let marker = Object.assign({}, m);
 
-        if(marker.type === action.markerType) {
+        if(marker.type === action.markerType && marker.username !== action.activeUsername) {
           marker.visible = true;
         }
 
@@ -68,7 +68,7 @@ export default function markersReducer(state = initialState.markers, action){
 
         let marker = Object.assign({}, m);
 
-        if(marker.type === action.markerType) {
+        if(marker.type === action.markerType && marker.username !== action.activeUsername) {
           marker.visible = false;
         }
 

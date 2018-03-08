@@ -70,10 +70,6 @@ class MarkerWrapper extends React.Component {
     }
   };
 
-  onlyPassenger = (user) => {
-    return user.types.length === 1 && user.types[0] === Constants.TYPE_PASSENGER;
-  };
-
   render() {
     const {marker, user, connection, activeUser} = this.props;
 
@@ -99,7 +95,7 @@ class MarkerWrapper extends React.Component {
               activeUsername={activeUser.username}
               showButton={
                 (activeUser.username !== marker.username) &&
-                !(marker.type === Constants.TYPE_PASSENGER && this.onlyPassenger(activeUser))
+                !(marker.type === Constants.TYPE_PASSENGER && activeUser.type === Constants.TYPE_PASSENGER)
               } /> :
             <div>Your office is here</div>}
         </InfoWindow>

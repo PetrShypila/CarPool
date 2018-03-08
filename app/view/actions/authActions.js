@@ -13,9 +13,9 @@ export function loginUser(username, password) {
   );
 }
 
-export function signUpUser(user) {
+export function signupUser(user) {
   return () => (
-    AuthApi.signUpUser(user).then(res => {
+    AuthApi.signupUser(user).then(res => {
       if(res.status === 200) {
         window.location.replace(res.url);
       }

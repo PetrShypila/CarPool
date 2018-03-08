@@ -67,7 +67,9 @@ function signup(req, res) {
   UserService.signUpUser(req.body).then(response => {
     switch(response.status) {
       case 201:
+
         logger.info(`Successfully registered user ${JSON.stringify(req.body)}`);
+
         res.redirect('/login'); return;
       case 500:
       case 409:
