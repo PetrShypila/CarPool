@@ -36,10 +36,10 @@ class LeftSidePanel extends React.Component{
           />
         </div>
         <div className={`inbox`}>
-          <p>Connections</p>
+          <p><b>New Connections</b></p>
           {this.props.connections.map(c => (<InboxRequest key={c._id}
                                                connection={c}
-                                               marker={this.props.markers.find(m => m._id === c.markerId)}
+                                               marker={this.props.markers.find(m => m.username === c.requester)}
                                                user={this.props.users.find(u => u.username === c.requester)}
                                                activeUsername={this.props.activeUsername} />))}
         </div>

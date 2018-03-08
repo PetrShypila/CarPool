@@ -13,7 +13,6 @@ ProfileMap.propTypes = {
 };
 
 function ProfileMap({zoom, marker, officeMarker, onMapClick}) {
-
   return (
     <GoogleMap
       defaultZoom={zoom}
@@ -22,7 +21,7 @@ function ProfileMap({zoom, marker, officeMarker, onMapClick}) {
     >
       { officeMarker && <Marker
                             visible
-                            position={officeMarker}
+                            position={officeMarker.coordinates}
                             defaultIcon={{
                               url: Constants.ICON_COMPANY,
                               scaledSize: {height: 48, width: 48}

@@ -99,7 +99,7 @@ class Map extends React.Component {
            markers.map(m => (<MarkerWrapper key={m._id}
                                             marker={m}
                                             user={users.find(u => u.username === m.username)}
-                                            connection={connections.find(c => c.markerId === m._id)}
+                                            connection={connections.find(c => c.requester === m.username)}
                                             activeUser={activeUser} />))
           }
           {directions && <DirectionsRenderer options={{suppressMarkers: true, preserveViewport:true}} directions={directions} />}
